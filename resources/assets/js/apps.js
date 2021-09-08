@@ -35,15 +35,15 @@ const router = new VueRouter({
                 },
                 {
                     path: 'paid',
-                    component: PaidApps
+                    component: PaidApps,
                 },
                 {
                     path: 'new',
-                    component: NewApps
+                    component: NewApps,
                 },
                 {
                     path: 'api-key/create',
-                    component: ApiKey
+                    component: ApiKey,
                 },
             ],
         },
@@ -68,4 +68,4 @@ new Vue({
   el    : '#main-body',
   router,
   render: h => h(AppStoreSPALayout),
-})
+});
