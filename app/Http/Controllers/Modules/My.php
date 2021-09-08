@@ -21,6 +21,6 @@ class My extends Controller
         $modules = $this->getInstalledModules();
         $installed = Module::where('company_id', '=', company_id())->pluck('enabled', 'alias')->toArray();
 
-        return $this->response('modules.my.index', compact('purchased', 'modules', 'installed'));
+        return $this->response('apps.my.index', compact('purchased', 'modules', 'installed'));
     }
 }
