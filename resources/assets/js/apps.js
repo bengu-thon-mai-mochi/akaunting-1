@@ -6,6 +6,7 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 import Apps from './Apps.vue';
+import AppStoreSPALayout from './AppStoreSPALayout.vue';
 import Home from './views/apps/Home.vue';
 import MyApps from './views/apps/MyApps.vue';
 import PaidApps from './views/apps/PaidApps.vue';
@@ -18,6 +19,7 @@ var base_path = url.replace(global_path, '');
 const router = new VueRouter({
     mode: 'history',
     base: base_path,
+
     routes: [
         {
             path: '/apps',
@@ -65,5 +67,5 @@ const router = new VueRouter({
 new Vue({
   el    : '#main-body',
   router,
-  render: h => h(Apps),
-});
+  render: h => h(AppStoreSPALayout),
+})
