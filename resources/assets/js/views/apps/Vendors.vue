@@ -1,14 +1,10 @@
 <template>
-  <NoApp></NoApp>
+    <div>Vendors</div>
 </template>
 
 <script>
-import NoApp from './components/NoApp.vue'
-
 export default {
-  name: "MyApps",
-
-  components: { NoApp },
+  name: "Vendors",
 
   data() {
     return {
