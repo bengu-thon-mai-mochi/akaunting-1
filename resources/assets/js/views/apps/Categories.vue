@@ -1,5 +1,5 @@
 <template>
-    <div>Categories</div>
+    <div>{{this.categoryName}}</div>
 </template>
 
 <script>
@@ -13,8 +13,11 @@ export default {
     };
   },
 
-  created() {
-  },
+  computed: { 
+    categoryName() {
+      return this.$route.params.category;
+    },
+  }
 
 };
 </script>

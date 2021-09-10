@@ -1,18 +1,10 @@
 <template>
-    <div>
-      
-      Search
-
-
-       {{ this.$route.query.keyword }}
-    </div>
-
-
+    <h1>FreeApps</h1>
 </template>
 
 <script>
 export default {
-  name: "Search",
+  name: "FreeApps",
 
   data() {
     return {
@@ -22,7 +14,6 @@ export default {
   },
 
   created() {
-    this.$route.query.keyword
   },
 
 };

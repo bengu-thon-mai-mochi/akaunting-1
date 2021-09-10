@@ -1,27 +1,22 @@
 <template>
-  <div>
+  <div> 
     <Header 
       title="title"
       :showButtons="showButtons"
     ></Header>
-    <div class="container-fluid content-layout mt--6">
       <SearchBar 
         v-show="this.$route.name !== 'apiKey'" 
         :values="categories"
         @handleSelect="filterByCategory"
-        @handleSearch="filterByKeyword(query)"
+        @handleSearch="filterByKeyword"
       ></SearchBar>
 
-      <div class="col-xs-12 col-sm-12">
-        <router-view :data="$data"></router-view>
+      <div>
+          <router-view :data="$data"></router-view>
+          <router-view name="paginationHelper" @handlePagination="handlePagination"></router-view>
       </div>
 
-      <a @click="handlePagination"> 
-        Next
-      </a>
-
-     <Footer v-show="this.$route.name !== 'apiKey'"></Footer>
-    </div>
+     <Footer></Footer>
   </div>
 </template>
 
@@ -64,7 +59,6 @@ export default {
       },
       formError: "Error occurred",
       selectedCategory: "",
-      query: "",
       currentPage: 1,
       isLoaded: false,
     };
@@ -80,18 +74,22 @@ export default {
 
   methods: {
     filterByCategory(category) { 
-      return this.$router.push(`categories/${category}`)
+      this.$router.replace({ 
+        name: "categories",
+        params: {category: `${category}`}
+      });
     },
 
-    filterByKeyword(query) { 
-      this.query = query; 
-
-         //get filteredArray
+    filterByKeyword(searchQuery) { 
+         //get filtered data
 
       //const res =  await axios.get(`https://app.akaunting.com/113091/apps/search?keyword=${query}`)
       //res.then(X => console.log(X))
 
-      this.$router.push('search')
+      this.$router.replace({ 
+        name: "search",
+        query: {keyword: `${searchQuery}`} 
+      });
       //filter
     },
 

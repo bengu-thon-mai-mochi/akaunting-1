@@ -4,7 +4,6 @@
         <div class="card">
           <div class="card-body p-2">
             <div class="row align-items-center">
-            
               <div class="col-xs-12 col-sm-2 pl-0 pr-0">
                 <div class="form-group form-control-sm d-inline-block w-100">
                     <el-select
@@ -12,7 +11,7 @@
                       name="values"
                       :options="values"
                       v-model="selected"
-                      @change="setSelectedCategory($event)"
+                      @change="handleSelect"
                       placeholder="SELECT!!!"
                     >
                       <el-option
@@ -32,19 +31,17 @@
               <div class="vr d-none d-sm-block"></div>
 
               <div class="col-xs-12 col-sm-6">
-                <form method="GET" action="https://app.akaunting.com/113091/apps/search" accept-charset="UTF-8" role="form" class="m-0">
                     <div class="searh-field tags-input__wrapper">
                         <input 
                           name="keyword" 
-                          value="" 
+                          v-model="query" 
                           type="text" 
-                          @enter="filterByKeyword(e)"
+                          @keydown.enter="handleEnter"
                           placeholder="Type to search.." 
                           autocomplete="off" 
                           class="form-control form-control-sm d-inline-block w-100"
                         >
                     </div>
-                </form>
               </div>
 
                 <div class="col-xs-12 col-sm-4 text-center">
@@ -82,17 +79,21 @@ export default {
 
     data() {
       return {
-        selected: ""
+        query: '',
+        selected: ''
       }
     },
 
     methods: {
-      setSelectedCategory(e) {
-        console.log(e)
-        this.$emit('handleSelect', e)
+      handleSelect() {
+        this.$emit('handleSelect', this.selected);
+        this.selected = '';
+        this.query = ''
       },
-      filterByKeyword(e){
-        this.$emit('handleSearch', e)
+      handleEnter(){
+        this.$emit('handleSearch',this.query);
+        this.selected = '';
+        this.query = '';
       }
     }
 }

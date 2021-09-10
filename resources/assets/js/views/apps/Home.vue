@@ -2,7 +2,6 @@
   <div v-if="pageData.modules"> 
     
     <div 
-      class="row"
       v-for="(modules, index) in pageData.modules" 
       :key="index"
     >
@@ -22,7 +21,6 @@
   </div>
 
   <div v-else> No Data </div>
-
 </template>
 
 <script>

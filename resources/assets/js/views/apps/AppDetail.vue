@@ -251,7 +251,19 @@
             </a>
             <div class="text-center mt-3">
               A year of updates &amp; support.<br />
-              A lifetime of usage. <a href="javascript:void();" id="button-purchase-faq">Learn more</a>
+              A lifetime of usage.
+                <akaunting-modal :show="show" @cancel="() => show = false"> 
+                  <template #modal-header>
+                    <div>Some heading</div>
+                  </template>
+                  <template #modal-body>
+                    <div>Some HTML</div>
+                  </template>
+                 <template #card-footer>
+                   <div hidden></div>
+                 </template>
+                </akaunting-modal>
+               <a @click="showModal" id="button-purchase-faq">Learn more</a>
             </div>
           </div>
         </div>
@@ -292,28 +304,6 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-8">
-        <div class="row">
-          <div class="col-xs-6 col-sm-6">
-            <div class="float-left">
-              <h3>Modül Adı</h3>
-            </div>
-          </div>
-          <div class="col-xs-6 col-sm-6">
-            <div class="float-right">
-              <Rating rating="5"></Rating>
-            </div>
-          </div>
-          <div class="nav-wrapper">
-            <ul id="tabs-icons-text" role="tablist" class="nav nav-pills nav-fill flex-column flex-md-row">
-              <div v-for="(button,index) in buttons=2" :key="index">
-                <NavButtons routeDirection="#description" active="false"></NavButtons>
-              </div>
-            </ul>
-          </div>
-          <div class="card"></div>
-        </div>
         <div class="col-md-4"></div>
       </div>
     </div>
@@ -323,16 +313,29 @@
 <script>
 import NavButtons from './components/NavButtons.vue';
 import Rating from './components/Rating.vue';
+import AkauntingModal from '../../components/AkauntingModal.vue';
 
 export default {
-  components: { Rating, NavButtons },
+  components: { 
+    Rating, 
+    NavButtons,
+    AkauntingModal 
+  },
+  
   name: "AppDetail",
 
   data() {
     return {
+      show: false,
       appInfo: {
       },
     };
   },
+
+  methods: {
+    showModal() {
+      this.show = true;
+    }
+  }
 };
 </script>

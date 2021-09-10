@@ -13,7 +13,6 @@
                         <div class="card-header pb-2">
                             <slot name="card-header">
                                 <h4 class="float-left"> {{ title }} </h4>
-
                                 <button type="button" class="close" @click="onCancel" aria-hidden="true">&times;</button>
                             </slot>
                         </div>

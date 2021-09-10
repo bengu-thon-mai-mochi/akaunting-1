@@ -11,11 +11,13 @@ import Home from './views/apps/Home.vue';
 import MyApps from './views/apps/MyApps.vue';
 import PaidApps from './views/apps/PaidApps.vue';
 import NewApps from './views/apps/NewApps.vue';
+import FreeApps from './views/apps/FreeApps.vue';
 import ApiKey from './views/apps/ApiKey.vue';
 import AppDetail from './views/apps/AppDetail.vue';
 import Vendors from './views/apps/Vendors.vue';
-import Search from './views/apps/Vendors.vue';
+import Search from './views/apps/Search.vue';
 import Categories from './views/apps/Categories.vue';
+import PaginationLayout from './views/apps/PaginationLayout.vue';
 
 var global_path = new URL(url).protocol + '//' + window.location.host;
 var base_path = url.replace(global_path, '');
@@ -32,12 +34,18 @@ const router = new VueRouter({
                 {
                     path: 'home',
                     name: 'home',
-                    component: Home
+                    components: {  
+                        default: Home,
+                        helper: PaginationLayout
+                    },
                 },
                 {
                     path: 'categories/:category',
                     name: 'categories',
-                    component: Categories
+                    components: {  
+                        default: Categories,
+                        paginationHelper: PaginationLayout
+                    },
                 },
                 {
                     path: 'my',
@@ -48,22 +56,41 @@ const router = new VueRouter({
                     path: 'paid',
                     name: 'paid',
                     component: PaidApps,
+                    components: {  
+                        default: PaidApps,
+                        paginationHelper: PaginationLayout
+                    },
                     props: route => ({ query: route.query.q })
                 },
                 {
                     path: 'new',
                     name: 'new',
-                    component: NewApps,
+                    components: {  
+                        default: NewApps,
+                        paginationHelper: PaginationLayout
+                    },
                 },
                 {
-                    path: 'search',
-                    name: 'search',
-                    component: Search,
+                    path: 'free',
+                    name: 'free',
+                    components: {  
+                        default: FreeApps,
+                        paginationHelper: PaginationLayout
+                    },
                 },
                 {
                     path: 'vendors/:vendorname',
                     name: 'vendors',
                     component: Vendors,
+                },
+                {
+                    path: 'search',
+                    name: 'search',
+                    components: { default: Search,  search: Search },
+                    props: {
+                        default: true,
+                        search: route => ({ keyword: route.query.q })
+                    },
                 },
                 {
                     path: 'api-key/create',
@@ -95,7 +122,7 @@ const router = new VueRouter({
 });
 
 new Vue({
-  el    : '#main-body',
+  el    : '#app',
   router,
   render: h => h(AppStoreSPALayout),
 });

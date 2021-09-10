@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <div class="card row">
+    <div class="card">
       <div class="card-body">
         <form method="POST" action="https://app.akaunting.com/113091/apps/api-key" accept-charset="UTF-8" id="form-app" role="form" enctype="multipart/form-data" class="form-loading-button">
           <input name="_token" type="hidden" value="xZYEv7ZyANRi7UZ4Ehfz47p3Ops7HSdf2SGyD2Ay" />
@@ -48,9 +47,8 @@
         </form>
       </div>
     </div>
-    <Footer></Footer>
-  </div>
 </template>
+
 <script>
 import Footer from './components/Footer.vue'
 
