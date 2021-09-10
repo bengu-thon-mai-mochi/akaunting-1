@@ -205,26 +205,8 @@
                     </div>
                   </div>
                 </div>
-                <div class="row mt-4">
-                  <div class="col-md-6">
-                    <span class="table-text d-lg-block">
-                      1-5 of 33 records.
-                    </span>
-                  </div>
-                  <div class="col-md-6">
-                    <ul class="pagination float-right">
-                      <li class="page-item disabled"><span class="page-link">«</span></li>
-                      <li class="page-item active"><span class="page-link">1</span></li>
-                      <li class="page-item"><button type="button" data-page="2" class="page-link">2</button></li>
-                      <li class="page-item"><button type="button" data-page="3" class="page-link">3</button></li>
-                      <li class="page-item"><button type="button" data-page="4" class="page-link">4</button></li>
-                      <li class="page-item"><button type="button" data-page="5" class="page-link">5</button></li>
-                      <li class="page-item"><button type="button" data-page="6" class="page-link">6</button></li>
-                      <li class="page-item"><button type="button" data-page="7" class="page-link">7</button></li>
-                      <li class="page-item"><button type="button" rel="next" class="page-link">»</button></li>
-                    </ul>
-                  </div>
-                </div>
+                  <pagination></pagination>
+             
                 <div class="card-footer mx--4 mb--4">
                   <div class="row"><div class="col-md-12 text-right"></div></div>
                 </div>
@@ -314,12 +296,14 @@
 import NavButtons from './components/NavButtons.vue';
 import Rating from './components/Rating.vue';
 import AkauntingModal from '../../components/AkauntingModal.vue';
+import Pagination from './components/Pagination.vue';
 
 export default {
   components: { 
     Rating, 
     NavButtons,
-    AkauntingModal 
+    AkauntingModal,
+    Pagination 
   },
   
   name: "AppDetail",
