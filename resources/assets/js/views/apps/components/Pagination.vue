@@ -2,11 +2,11 @@
    <div class="row mt-4">
     <div class="col-md-6">
         <span class="table-text d-lg-block">
-            {(reviews / 5) . currentPage chunk}  of {reviews} records.
+            {{paginationData.from}}/{{ paginationData.to }} of {{ paginationData.total}} records.
         </span>
    </div>
-
-    <ul v-if="pages" class="pagination float-right">
+    <div class="col-md-6">
+    <ul v-if="paginationData.last_page" class="pagination float-right">
         <li 
             :class="`page-item  ${currentPage === 1 ? isDisabled : ''}` "
         >
@@ -19,7 +19,7 @@
             </button>
         </li>
         <li 
-            v-for="(value, index) in pages"
+            v-for="(value, index) in paginationData.last_page"
             :key="index"
             :class="`page-item ${currentPage === value ? isSelected : ''}`"
         >
@@ -32,7 +32,7 @@
             </button>
         </li>
         <li 
-            :class="`page-item  ${currentPage === pages.length ? isDisabled : ''}` "
+            :class="`page-item  ${currentPage === paginationData.last_page ? isDisabled : ''}` "
         >
             <button 
                 type="button" 
@@ -43,6 +43,7 @@
             </button>
         </li>
     </ul>
+     </div>
    </div>
 </template> 
 
@@ -51,22 +52,22 @@ export default {
     name: 'Pagination',
 
     props: {
-        pages: {
-            type: Array,
-            default: [1,2,3,4,5,6,7,8,9]
-        },
+        paginationData: {
+            type: Object
+        }
     },
 
     data() {
         return {
             currentPage: 1,
+           
         }
     },
 
     methods: {
         navigateToSelectedPage(page) {
+            this.$emit('handle-update', page);
             this.currentPage = page;
-            //change view
         },
     },
 
@@ -84,6 +85,6 @@ export default {
             return 'active disabled';
         },
         
-    }
+    },
 }
 </script>

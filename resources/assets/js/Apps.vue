@@ -65,7 +65,7 @@ export default {
   },
 
   created() {
-    getData();
+   // getData();
   },
 
   mounted() {
@@ -83,6 +83,8 @@ export default {
     filterByKeyword(searchQuery) { 
          //get filtered data
 
+      //window.axios.get(url + '/modals/documents/item-columns/edit?type=' + type)
+                 // .then(response => {
       //const res =  await axios.get(`https://app.akaunting.com/113091/apps/search?keyword=${query}`)
       //res.then(X => console.log(X))
 

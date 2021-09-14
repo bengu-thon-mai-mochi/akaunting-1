@@ -1,15 +1,25 @@
 <template>
   <div>
+    <akaunting-modal :show="show" @cancel="() => show = false"> 
+      <template #modal-header>
+        <div>Some heading</div>
+      </template>
+      <template #modal-body>
+        <div v-html="appData.purchase_faq"></div>
+      </template>
+      <template #card-footer>
+        <div hidden></div>
+      </template>
+    </akaunting-modal>
     <div class="row">
       <div class="col-md-8">
         <div class="row">
           <div class="col-xs-6 col-sm-6">
-            <div class="float-left"><h3>Double-Entry</h3></div>
+            <div class="float-left"><h3>{{appData.name}}</h3></div>
           </div>
           <div class="col-xs-6 col-sm-6">
             <div class="float-right">
-              <i class="fa fa-star fa-sm text-yellow"></i> <i class="fa fa-star fa-sm text-yellow"></i> <i class="fa fa-star fa-sm text-yellow"></i> <i class="fa fa-star fa-sm text-yellow"></i>
-              <i class="fa fa-star fa-sm text-yellow"></i>
+              <rating :rating="appData.vote"></rating>
             </div>
           </div>
         </div>
@@ -20,19 +30,16 @@
                 Description
               </a>
             </li>
-            <li class="nav-item"><a href="#review" data-toggle="tab" aria-selected="false" class="nav-link mb-sm-2 mb-md-0"> Reviews (33) </a></li>
+            <li class="nav-item">
+              <a href="#review" data-toggle="tab" aria-selected="false" class="nav-link mb-sm-2 mb-md-0">  Reviews ( {{ appData.total_review }} ) </a>
+            </li>
           </ul>
         </div>
         <div class="card">
           <div class="card-body">
             <div class="tab-content">
               <div id="description" class="tab-pane fade show active">
-                <p>Looking for&nbsp;Chart of Accounts, Journal Entry, General Ledger, Balance Sheet, and Trial Balance?&nbsp;This app brings the double-entry accounting features to Akaunting.</p>
-                <p>
-                  Akaunting ships with single-entry accounting feature set. However, some of the businesses, whether they use the cash-basis accounting method or the accrual accounting method, use double-entry bookkeeping to keep their
-                  books. Double-entry accounting is a practice that helps minimize errors and increases the chance that your books balance.
-                </p>
-                <p>If you're an accountant, thanks to the multi-company feature of Akaunting, you can manage the financials of unlimited companies using this app.</p>
+                <div v-html="appData.description"></div>
                 <div>
                   <div class="el-carousel el-carousel--horizontal">
                     <div class="el-carousel__container" style="height: 430px;">
@@ -42,14 +49,14 @@
                         <!---->
                         <iframe
                           height="365px"
-                          src="https://www.youtube-nocookie.com/embed/sOS-nOyTRHk"
+                          :src="appData.video.link"
                           frameborder="0"
                           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                           allowfullscreen="allowfullscreen"
                           class="carousel-frame w-100"
                         ></iframe>
                         <div class="carousel-description py-2">
-                          Double-Entry
+                         {{appData.name}}
                         </div>
                       </div>
                     </div>
@@ -58,155 +65,21 @@
                   <!---->
                 </div>
               </div>
-              <div id="installation" class="tab-pane fade"><p>Install the app within one click from your Akaunting admin panel, Apps &gt; Double-Entry page.</p></div>
               <div id="review" class="tab-pane fade">
-                <div id="reviews" class="clearfix">
-                  <div id="review-items">
-                    <div class="media media-comment">
-                      <div class="media-body">
-                        <div class="media-comment-text">
-                          <div class="d-flex">
-                            <h5 class="mb-0">Caroline Okello</h5>
-                          </div>
-
-                          <div class="d-flex">
-                            <p class="h6 text-muted mb-0">01 Aug 2021</p>
-                          </div>
-
-                          <div class="d-flex">
-                            <span class="text-yellow position-absolute top-3 right-3">
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                            </span>
-                          </div>
-
-                          <div class="d-flex">
-                            <p class="mt-2 mb-0 text-sm lh-160">
-                              This is an awesome App for small business owners. My Clients with small business love it because its simple to use and user friendly. We also received quick support on tickets. I appreciated that. Thank you.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="media media-comment">
-                      <div class="media-body">
-                        <div class="media-comment-text">
-                          <div class="d-flex">
-                            <h5 class="mb-0">Jerome</h5>
-                          </div>
-
-                          <div class="d-flex">
-                            <p class="h6 text-muted mb-0">14 Jul 2021</p>
-                          </div>
-
-                          <div class="d-flex">
-                            <span class="text-yellow position-absolute top-3 right-3">
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                            </span>
-                          </div>
-
-                          <div class="d-flex">
-                            <p class="mt-2 mb-0 text-sm lh-160">I love the flexibility of this app that I find it very easy and effective to use. Works great and meets all my requirements.</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="media media-comment">
-                      <div class="media-body">
-                        <div class="media-comment-text">
-                          <div class="d-flex">
-                            <h5 class="mb-0">David</h5>
-                          </div>
-
-                          <div class="d-flex">
-                            <p class="h6 text-muted mb-0">26 Jun 2021</p>
-                          </div>
-
-                          <div class="d-flex">
-                            <span class="text-yellow position-absolute top-3 right-3">
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                            </span>
-                          </div>
-
-                          <div class="d-flex">
-                            <p class="mt-2 mb-0 text-sm lh-160">Great, easy to use app with helpful functionality. Support team have been great too when I've had issues.</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="media media-comment">
-                      <div class="media-body">
-                        <div class="media-comment-text">
-                          <div class="d-flex">
-                            <h5 class="mb-0">Desmond</h5>
-                          </div>
-
-                          <div class="d-flex">
-                            <p class="h6 text-muted mb-0">03 May 2021</p>
-                          </div>
-
-                          <div class="d-flex">
-                            <span class="text-yellow position-absolute top-3 right-3">
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-
-                              <i class="far fa-star"></i>
-                            </span>
-                          </div>
-
-                          <div class="d-flex">
-                            <p class="mt-2 mb-0 text-sm lh-160">Very easy to use. Would be better if there is a CSV import functionality for journal entry.</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="media media-comment">
-                      <div class="media-body">
-                        <div class="media-comment-text">
-                          <div class="d-flex">
-                            <h5 class="mb-0">Trenton</h5>
-                          </div>
-
-                          <div class="d-flex">
-                            <p class="h6 text-muted mb-0">25 Apr 2021</p>
-                          </div>
-
-                          <div class="d-flex">
-                            <span class="text-yellow position-absolute top-3 right-3">
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                            </span>
-                          </div>
-
-                          <div class="d-flex">
-                            <p class="mt-2 mb-0 text-sm lh-160">
-                              I've searched for an app like this for a long time and finally met Akaunting and this app. It answers all my needs with huge ease and works really great. Highly recommended if you're looking for a double-entry
-                              accounting app.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                <div id="reviews" class="clearfix" keep-alive>
+                  <div 
+                    id="review-items" 
+                    v-if="pageReviews"
+                  > 
+                    <Review 
+                      v-for="(review, index) in pageReviews"
+                      :key="index"
+                      :review="review">
+                    </Review>
                   </div>
-                </div>
-                  <pagination></pagination>
-             
+                  <pagination :paginationData="paginationData" @handle-update="handlePagination"></pagination>
+                
+                   
                 <div class="card-footer mx--4 mb--4">
                   <div class="row"><div class="col-md-12 text-right"></div></div>
                 </div>
@@ -215,40 +88,28 @@
           </div>
         </div>
       </div>
+      </div>
       <div class="col-md-4">
         <h3>Actions</h3>
         <div class="card">
-          <div class="card-body">
-            <div class="text-center">
-              <strong>
-                <div class="text-xl">
-                  $69
-                </div>
-              </strong>
+            <div class="card-body">
+              <div class="text-center">
+                <strong>
+                  <div class="text-xl">
+                    $69
+                  </div>
+                </strong>
+              </div>
             </div>
-          </div>
           <div class="card-footer">
-            <a href="https://akaunting.com/apps/double-entry/buy?redirect=aHR0cHM6Ly9hcHAuYWthdW50aW5nLmNvbQ==" target="_blank" class="btn btn-success btn-block">
+            <a :href="appData.action_url" target="_blank" class="btn btn-success btn-block">
               Buy Now
             </a>
-            <div class="text-center mt-3">
-              A year of updates &amp; support.<br />
-              A lifetime of usage.
-                <akaunting-modal :show="show" @cancel="() => show = false"> 
-                  <template #modal-header>
-                    <div>Some heading</div>
-                  </template>
-                  <template #modal-body>
-                    <div>Some HTML</div>
-                  </template>
-                 <template #card-footer>
-                   <div hidden></div>
-                 </template>
-                </akaunting-modal>
-               <a @click="showModal" id="button-purchase-faq">Learn more</a>
+            <div class="text-center mt-3" v-html="appData.purchase_desc">
             </div>
           </div>
-        </div>
+          </div>
+            
         <h3>About</h3>
         <div class="card">
           <table class="table">
@@ -257,38 +118,36 @@
                 <th class="col-5">Developer</th>
                 <td class="col-7 text-right">
                   <router-link to="vendors/akaunting-inc">
-                    Akaunting Inc
+                    {{ appData.vendor_name }}
                   </router-link>
                 </td>
               </tr>
               <tr class="row">
                 <th class="col-5">Version</th>
-                <td class="col-7 text-right">2.1.20</td>
+                <td class="col-7 text-right"> {{ appData.version }} </td>
               </tr>
               <tr class="row">
                 <th class="col-5">Added</th>
-                <td class="col-7 text-right long-texts">09 May 2018</td>
+                <td class="col-7 text-right long-texts">{{ appData.published_at }}</td>
               </tr>
               <tr class="row">
                 <th class="col-5">Updated</th>
-                <td class="col-7 text-right">1 week ago</td>
+                <td class="col-7 text-right">{{ appData.updated_at }}</td>
               </tr>
               <tr class="row">
                 <th class="col-5">Category</th>
-                <td class="col-7 text-right"><a href="https://app.akaunting.com/113091/apps/categories/accounting">Accounting</a></td>
+                <td class="col-7 text-right"><a :href="`${path}/apps/categories/${appData.category.slug}`">{{ appData.category.name }}</a></td>
               </tr>
               <tr class="row">
                 <th class="col-5">Documentation</th>
-                <td class="col-7 text-right"><a href="https://app.akaunting.com/113091/apps/docs/double-entry">View</a></td>
+                <td class="col-7 text-right">
+                  <a :href="`${path}/apps/docs/${appData.alias}`">View</a></td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-    </div>
-        <div class="col-md-4"></div>
-      </div>
-    </div>
+     </div>
   </div>
 </template>
 
@@ -297,12 +156,14 @@ import NavButtons from './components/NavButtons.vue';
 import Rating from './components/Rating.vue';
 import AkauntingModal from '../../components/AkauntingModal.vue';
 import Pagination from './components/Pagination.vue';
+import Review from './components/Review.vue';
 
 export default {
   components: { 
     Rating, 
     NavButtons,
     AkauntingModal,
+    Review,
     Pagination 
   },
   
@@ -311,14 +172,57 @@ export default {
   data() {
     return {
       show: false,
-      appInfo: {
-      },
+      appData: {},
+      reviewPages: [],
+      pageReviews: {},
+      paginationData: {},
+      appName: 'double-entry',
     };
   },
 
+  async mounted() {
+    this.appData = await this.getPageData();
+    const { current_page, last_page, from, to, per_page, total, data } = this.appData.app_reviews;
+    this.paginationData = { current_page, last_page, from, to, per_page, total };
+    this.pageReviews = data;
+  },
+
   methods: {
-    showModal() {
+    onShowFaq() {
       this.show = true;
+    },
+    async getPageData(){
+      const result = await window.axios.get( this.path + '/apps/' + this.appName);
+      const data = await result.data.data;   
+
+      return data;
+    },
+    async getReviews(page){
+      const result = await window.axios.post(this.path + '/apps/' + this.appData.slug  + '/reviews', {
+              page: page
+              }
+            )
+      const data = await result.data.data;   
+      
+      return data;
+    },
+    async handlePagination(page){ 
+
+      const result = await this.getReviews(page);
+
+      const { from, to, data } = result;
+      this.pageReviews = data;
+      this.paginationData = { ...this.paginationData, from, to };
+    }
+  },
+
+  computed: {
+    path() {
+      const baseURL = new URL(url).protocol + '//' + window.location.host;
+      const companyPath = url.replace(baseURL, '' );
+      const path = baseURL + companyPath;
+
+      return path;
     }
   }
 };

@@ -39,7 +39,7 @@ class Tiles extends Controller
         $modules = !empty($data->modules) ? $data->modules : [];
         $installed = Module::all()->pluck('enabled', 'alias')->toArray();
 
-        return view('modules.tiles.index', compact('title', 'modules', 'installed'));
+        return $this->response('modules.tiles.index', compact('title', 'modules', 'installed'));
     }
 
     /**
@@ -65,7 +65,7 @@ class Tiles extends Controller
         $modules = !empty($data->modules) ? $data->modules : [];
         $installed = Module::all()->pluck('enabled', 'alias')->toArray();
 
-        return view('modules.tiles.index', compact('title', 'modules', 'installed'));
+        return $this->response('modules.tiles.index', compact('title', 'modules', 'installed'));
     }
 
     /**
@@ -87,7 +87,7 @@ class Tiles extends Controller
         $modules = $this->getPaidModules($data);
         $installed = Module::all()->pluck('enabled', 'alias')->toArray();
 
-        return view('modules.tiles.index', compact('title', 'modules', 'installed'));
+        return $this->response('modules.tiles.index', compact('title', 'modules', 'installed'));
     }
 
     /**
@@ -109,7 +109,7 @@ class Tiles extends Controller
         $modules = $this->getNewModules($data);
         $installed = Module::all()->pluck('enabled', 'alias')->toArray();
 
-        return view('modules.tiles.index', compact('title', 'modules', 'installed'));
+        return $this->response('modules.tiles.index', compact('title', 'modules', 'installed'));
     }
 
     /**
@@ -131,7 +131,7 @@ class Tiles extends Controller
         $modules = $this->getFreeModules($data);
         $installed = Module::all()->pluck('enabled', 'alias')->toArray();
 
-        return view('modules.tiles.index', compact('title', 'modules', 'installed'));
+        return $this->response('modules.tiles.index', compact('title', 'modules', 'installed'));
     }
 
     /**
@@ -155,6 +155,6 @@ class Tiles extends Controller
         $modules = $this->getSearchModules($data);
         $installed = Module::all()->pluck('enabled', 'alias')->toArray();
 
-        return view('modules.tiles.index', compact('title', 'modules', 'keyword', 'installed'));
+        return $this->response('modules.tiles.index', compact('title', 'modules', 'keyword', 'installed'));
     }
 }
