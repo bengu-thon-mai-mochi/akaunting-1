@@ -10,10 +10,10 @@
         @handleSelect="filterByCategory"
         @handleSearch="filterByKeyword"
       ></SearchBar>
-
+     
       <div>
-          <router-view :data="$data"></router-view>
-          <router-view name="paginationHelper" @handlePagination="handlePagination"></router-view>
+          <router-view v-show="!isLoading" :data="$data"></router-view>
+          <router-view v-show="!isLoading" name="paginationHelper" @handlePagination="handlePagination"></router-view>
       </div>
 
      <Footer></Footer>
@@ -25,9 +25,7 @@
 import Header from './views/apps/components/Header.vue';
 import SearchBar from './views/apps/components/SearchBar.vue';
 import Footer from './views/apps/components/Footer.vue';
-import BaseInput from './components/Inputs/BaseInput';
-
-import axios from 'axios';
+import Spinner from './views/apps/components/Spinner.vue';
 
 export default {
   name: "Apps",
@@ -36,11 +34,12 @@ export default {
     Footer,
     Header, 
     SearchBar,
-    BaseInput
+    Spinner
   },
 
   data() {
     return {
+      isLoading: false,
       translations: {
       },
       categories: ['crm', 'bla', 'wow'],
@@ -61,18 +60,32 @@ export default {
       selectedCategory: "",
       currentPage: 1,
       isLoaded: false,
+      data: {
+
+      }
     };
   },
 
   created() {
-   // getData();
+    
   },
 
-  mounted() {
+  async mounted() {
     this.currentPage = 1;
+    this.isLoading = false;
+    this.data = await this.getModules();
+
   },
 
   methods: {
+    async getModules(){
+      const baseURL = new URL(url).protocol + '//' + window.location.host;
+      const result = await window.axios.get(baseURL + '/1/apps/home');
+      const data = await result.data;   
+      console.log(result)
+
+      return data;
+    },
     filterByCategory(category) { 
       this.$router.replace({ 
         name: "categories",
@@ -115,6 +128,13 @@ export default {
   computed: {
     showButtons() {
       return this.$route.name !== 'apiKey'
+    },
+    path() {
+      const baseURL = new URL(url).protocol + '//' + window.location.host;
+      const companyPath = url.replace(baseURL, '' );
+      const path = baseURL + companyPath;
+
+      return path;
     }
   }
 };

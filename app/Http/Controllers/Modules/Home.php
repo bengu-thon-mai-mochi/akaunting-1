@@ -23,13 +23,12 @@ class Home extends Controller
             ]
         ];
 
-        $pre_sale = $this->getPreSaleModules($data);
         $paid = $this->getPaidModules($data);
         $new = $this->getNewModules($data);
         $free = $this->getFreeModules($data);
         $installed = Module::all()->pluck('enabled', 'alias')->toArray();
 
-        return $this->response('apps.home.index', compact('pre_sale', 'paid', 'new', 'free', 'installed'));
+        return $this->response('apps.home.index', compact( 'paid', 'new', 'free', 'installed'));
     }
 }
 

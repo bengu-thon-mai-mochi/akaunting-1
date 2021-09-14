@@ -38,7 +38,7 @@ export default {
     };
   },
 
-  created() {
+  async mounted() {
     this.pageData = this.$attrs.data;
   },
 };
