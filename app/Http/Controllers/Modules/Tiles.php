@@ -38,8 +38,10 @@ class Tiles extends Controller
         $title = !empty($data->category) ? $data->category->name : Str::studly($alias);
         $modules = !empty($data->modules) ? $data->modules : [];
         $installed = Module::all()->pluck('enabled', 'alias')->toArray();
-
-        return $this->response('modules.tiles.index', compact('title', 'modules', 'installed'));
+        
+        $categories = array('title' => $title , 'modules' => $modules, 'installed' => $installed);
+       
+        return $this->response('modules.tiles.index', compact('categories'));
     }
 
     /**
@@ -65,7 +67,10 @@ class Tiles extends Controller
         $modules = !empty($data->modules) ? $data->modules : [];
         $installed = Module::all()->pluck('enabled', 'alias')->toArray();
 
-        return $this->response('modules.tiles.index', compact('title', 'modules', 'installed'));
+        $pageData = array( 'title' => $title , $modules, $installed );
+       
+
+        return $this->response('modules.tiles.index', compact('pageData'));
     }
 
     /**
@@ -87,7 +92,9 @@ class Tiles extends Controller
         $modules = $this->getPaidModules($data);
         $installed = Module::all()->pluck('enabled', 'alias')->toArray();
 
-        return $this->response('modules.tiles.index', compact('title', 'modules', 'installed'));
+        $pageData = array('title' => $title, $modules, $installed);
+
+        return $this->response('modules.tiles.index', compact('pageData'));
     }
 
     /**
@@ -109,7 +116,9 @@ class Tiles extends Controller
         $modules = $this->getNewModules($data);
         $installed = Module::all()->pluck('enabled', 'alias')->toArray();
 
-        return $this->response('modules.tiles.index', compact('title', 'modules', 'installed'));
+        $pageData = array('title' => $title, $modules, $installed);
+
+        return $this->response('modules.tiles.index', compact('pageData'));
     }
 
     /**
@@ -126,12 +135,14 @@ class Tiles extends Controller
                 'page' => $page,
             ]
         ];
-
+        
         $title = trans('modules.top_free');
         $modules = $this->getFreeModules($data);
         $installed = Module::all()->pluck('enabled', 'alias')->toArray();
 
-        return $this->response('modules.tiles.index', compact('title', 'modules', 'installed'));
+        $pageData = array('title' => $title, $modules, $installed);
+
+        return $this->response('modules.tiles.index', compact('pageData'));
     }
 
     /**

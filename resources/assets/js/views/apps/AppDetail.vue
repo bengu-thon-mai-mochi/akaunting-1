@@ -41,7 +41,7 @@
               <div id="description" class="tab-pane fade show active">
                 <div v-html="appData.description"></div>
                 <div>
-                  <div class="el-carousel el-carousel--horizontal">
+                  <div v-if="appData.video" class="el-carousel el-carousel--horizontal">
                     <div class="el-carousel__container" style="height: 430px;">
                       <button type="button" class="el-carousel__arrow el-carousel__arrow--left"><i class="el-icon-arrow-left"></i></button>
                       <button type="button" class="el-carousel__arrow el-carousel__arrow--right"><i class="el-icon-arrow-right"></i></button>
@@ -94,17 +94,23 @@
         <div class="card">
             <div class="card-body">
               <div class="text-center">
-                <strong>
+                <strong v-if="!discountPrice">
+                  <div class="text-center mt-3">
+                    {{ appData.price }}
+                  </div>
+                </strong>
+                <strong v-else="discountPrice">
                   <div class="text-xl">
-                    $69
+                    <del class="text-danger"> {{ appData.price }} </del>
+                    <span> {{ discountPrice }} </span>
                   </div>
                 </strong>
               </div>
             </div>
           <div class="card-footer">
-            <a :href="appData.action_url" target="_blank" class="btn btn-success btn-block">
+            <router-link :to="appData.action_url" class="btn btn-success btn-block">
               Buy Now
-            </a>
+            </router-link>
             <div class="text-center mt-3" v-html="appData.purchase_desc">
             </div>
           </div>
@@ -117,8 +123,8 @@
               <tr class="row">
                 <th class="col-5">Developer</th>
                 <td class="col-7 text-right">
-                  <router-link to="vendors/akaunting-inc">
-                    {{ appData.vendor_name }}
+                  <router-link :to="'vendors/' + appData.vendor.slug">
+                    {{ appData.vendor.company }}
                   </router-link>
                 </td>
               </tr>
@@ -136,12 +142,13 @@
               </tr>
               <tr class="row">
                 <th class="col-5">Category</th>
-                <td class="col-7 text-right"><a :href="`${path}/apps/categories/${appData.category.slug}`">{{ appData.category.name }}</a></td>
+                <td class="col-7 text-right"><router-link :to="`/apps/categories/${appData.category.slug}`">{{ appData.category.name }}</router-link></td>
               </tr>
               <tr class="row">
                 <th class="col-5">Documentation</th>
                 <td class="col-7 text-right">
-                  <a :href="`${path}/apps/docs/${appData.alias}`">View</a></td>
+                  <router-link :to="`/apps/docs/${appData.alias}`">View</router-link>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -176,14 +183,17 @@ export default {
       reviewPages: [],
       pageReviews: {},
       paginationData: {},
-      appName: 'double-entry',
+      discountPrice: ''
     };
   },
 
   async mounted() {
-    this.appData = await this.getPageData();
+    const { appName } = this.$route.params;
+    this.appData = await this.getPageData(appName);
+    
     const { current_page, last_page, from, to, per_page, total, data } = this.appData.app_reviews;
     this.paginationData = { current_page, last_page, from, to, per_page, total };
+    this.discountPrice = this.appData.special_price;
     this.pageReviews = data;
   },
 
@@ -191,8 +201,8 @@ export default {
     onShowFaq() {
       this.show = true;
     },
-    async getPageData(){
-      const result = await window.axios.get( this.path + '/apps/' + this.appName);
+    async getPageData(param){
+      const result = await window.axios.get( this.path + '/apps/' + param);
       const data = await result.data.data;   
 
       return data;
@@ -223,7 +233,7 @@ export default {
       const path = baseURL + companyPath;
 
       return path;
-    }
+    },
   }
 };
 </script>

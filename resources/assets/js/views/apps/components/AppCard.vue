@@ -8,13 +8,13 @@
               </h4>
             </div>
 
-              <a :href="appLink">
+              <router-link :to="appLink">
                 <img 
                     :src="imgSource" 
                     :alt="cardHeader" 
                     class="card-img-top border-radius-none" 
                 />
-              </a>
+              </router-link>
 
               <div class="card-footer py-2">
 
@@ -29,7 +29,8 @@
                 </div> 
                 <div class="float-right mr--3">
                   <small>
-                    <strong> {{ price }} </strong>
+                    <strong v-if="discountPrice"> <del class="text-danger"> {{ price }} </del> {{ discountPrice }} </strong>
+                    <strong v-else> {{ price }} </strong>
                   </small>
                 </div>
               </div>
@@ -60,15 +61,9 @@ export default {
         },
         price:  {
             type: String,
-            Default: "$34"
         },
         discountPrice: {
             type: String,
-            Default: "$34"
-        },
-        isDiscounted: {
-            type: Boolean,
-            Default: false
         },
         rating: {
             type: Number

@@ -8,16 +8,6 @@ Vue.use(VueRouter);
 import Apps from './Apps.vue';
 import AppStoreSPALayout from './AppStoreSPALayout.vue';
 import Home from './views/apps/Home.vue';
-//import MyApps from './views/apps/MyApps.vue';
-//import PaidApps from './views/apps/PaidApps.vue';
-//import NewApps from './views/apps/NewApps.vue';
-//import FreeApps from './views/apps/FreeApps.vue';
-//import ApiKey from './views/apps/ApiKey.vue';
-//import AppDetail from './views/apps/AppDetail.vue';
-//import Vendors from './views/apps/Vendors.vue';
-//import Search from './views/apps/Search.vue';
-//import Categories from './views/apps/Categories.vue';
-//import PaginationLayout from './views/apps/PaginationLayout.vue';
 
 const Search  = () => import('./views/apps/Search.vue');
 const Categories = () => import('./views/apps/Categories.vue');

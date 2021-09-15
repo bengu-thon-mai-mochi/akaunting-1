@@ -1,23 +1,28 @@
 <template>
-    <div>Vendors</div>
+    <card-views-layout :data="pageData" :title="title"></card-views-layout>
 </template>
 
 <script>
+import CardViewsLayout from './CardViewsLayout.vue';
 export default {
+  components: { CardViewsLayout },
   name: "Vendors",
 
   data() {
     return {
-      someData: {
+      pageData: {
       },
+      current_page: '1',
+      title: '',
     };
   },
 
-  async mounted() {
-      const slug = this.$route.params.vendorname;
-      const result = await window.axios.get(this.path + '/apps/vendors/' + slug);
+  async created() {
+      const { path } = this.$route;
+      const result =  await window.axios.get(this.path + path);
       
-      this.someData = result.data.data;
+      this.title = result.data.data.title;
+      this.pageData = result.data.data[0];
   },
 
   computed: {

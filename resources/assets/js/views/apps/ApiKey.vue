@@ -29,14 +29,14 @@
                 <!---->
               </div>
               <div class="col-sm-12">
-                <small><a href="https://akaunting.com/dashboard" target="_blank">Click here</a> to get your API key.</small>
+                <small><router-link to="/" target="_blank">Click here</router-link> to get your API key.</small>
               </div>
             </div>
           </div>
           <div class="card-footer">
             <div class="row save-buttons">
               <div class="col-md-12">
-                <a href="https://app.akaunting.com/113091/apps/home" class="btn btn-outline-secondary">Cancel</a>
+                <router-link to="/apps/home" exact class="btn btn-outline-secondary">Cancel</router-link>
                 <button type="submit" class="btn btn-icon btn-success">
                   <!---->
                   <span class="btn-inner--text">Save</span>

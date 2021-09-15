@@ -1,26 +1,27 @@
 <template>
-  <div v-if="pageData.modules"> 
-    
-    <div 
-      v-for="(modules, index) in pageData.modules" 
-      :key="index"
-    >
-      
-      <h2>Modul Tip Adı</h2>
-
+  <div> 
+    <div v-for="(module, index) in modules" :key="index">
+      <h2>Top Paid</h2>
       <div class="row">
-        <div v-for="(module, index) in modules" class="col-md-3">
+        <div 
+          v-for="(app, index) in module.data" 
+          class="col-md-3"
+          :key="index"
+        >
           <AppCard 
-            appLink="_target" 
-            cardHeader="App Adı" 
-            imgSource="https://ae01.alicdn.com/kf/Hb25ef13ee50340e1aea27dff7be17fa35/Atlama-zaman-13cm-x-11-8cm-Hello-Kitty-sevimli-eytan-eytan-boynuzlar-Sticker-diz-st-kartmas.jpg_Q90.jpg_.web">
+            :appLink="app.app_releases.data[0].item_slug"
+            :cardHeader="app.name" 
+            :imgSource="Object.values(app.files).flat()[0]['path_string']"
+            :rating="app.vote"
+            :price="app.price"
+            :discountPrice="app.special_price ? app.special_price : ''"
+            :reviews="app.total_review"
+          > 
           </AppCard>
         </div>
       </div>
     </div>
   </div>
-
-  <div v-else> No Data </div>
 </template>
 
 <script>
@@ -31,15 +32,10 @@ export default {
 
   components: { AppCard },
 
-  data() {
-    return {
-      pageData: {
-      },
-    };
-  },
-
-  async mounted() {
-    this.pageData = this.$attrs.data;
+  props: {
+    modules: {
+      type: Object,
+    },
   },
 };
 </script>

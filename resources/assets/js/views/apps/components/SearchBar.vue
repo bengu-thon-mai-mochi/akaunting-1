@@ -45,9 +45,9 @@
               </div>
 
                 <div class="col-xs-12 col-sm-4 text-center">
-                    <router-link to="new" class="btn btn-white btn-sm">New</router-link>
-                    <router-link to="free" class="btn btn-white btn-sm">Free Apps</router-link>
-                    <router-link to="paid" class="btn btn-white btn-sm">Paid Apps</router-link>
+                   <router-link to="/apps/paid" class="btn btn-white btn-sm" exact>Paid Apps</router-link>
+                  <router-link to="/apps/new" class="btn btn-white btn-sm">New</router-link>
+                    <router-link to="/apps/free" class="btn btn-white btn-sm">Free Apps</router-link>
                 </div>
             </div>
 
@@ -71,24 +71,23 @@ export default {
       [OptionGroup.name]: OptionGroup,
     },
 
-    props: {
-      values: {
-        type: Array,
-      },
-    },
-
     data() {
       return {
         query: '',
-        selected: ''
+        selected: '',
+        values: {},
       }
+    },
+
+    async mounted() {
+      this.values = window.app_categories;
     },
 
     methods: {
       handleSelect() {
-        this.$emit('handleSelect', this.selected);
+        this.$emit('handleSelect',  { header:this.selected, param: this.selected.toLowerCase().replace(' ', '-') });
         this.selected = '';
-        this.query = ''
+        this.query = '';
       },
       handleEnter(){
         this.$emit('handleSearch',this.query);

@@ -36,3 +36,8 @@
         </div>
     </div>
 </div>
+
+
+        <script>
+         var app_categories = {{ json_encode($categories) }};
+        </script>

@@ -6,13 +6,12 @@
     ></Header>
       <SearchBar 
         v-show="this.$route.name !== 'apiKey'" 
-        :values="categories"
         @handleSelect="filterByCategory"
         @handleSearch="filterByKeyword"
       ></SearchBar>
-     
+
       <div>
-          <router-view v-show="!isLoading" :data="$data"></router-view>
+          <router-view v-show="!isLoading" :modules="modules"></router-view>
           <router-view v-show="!isLoading" name="paginationHelper" @handlePagination="handlePagination"></router-view>
       </div>
 
@@ -42,25 +41,11 @@ export default {
       isLoading: false,
       translations: {
       },
-      categories: ['crm', 'bla', 'wow'],
-      content: {
-        headerButtons: ['Api Key', 'My App'],
-        filterButtons: ['Top Paid', 'New', 'Top Free'],
-        newApps: ['food', 'food', 'food', 'food', 'food', 'food', 'food'],
-        paidApps: ['hummus','hummus','hummus','hummus','hummus','hummus' ],
-        freeApps: ['free','free','free','free','free','free'],
-        installedApps: ['miyav','miyav','miyav','miyav','miyav'],
-        categories: ['cats','cats','cats','cats','cats','cats','cats'], 
-      },
-      modules: {
-        free: [1,2,3,4,],
-        paid: [2,3,4,5,],
-      },
       formError: "Error occurred",
       selectedCategory: "",
       currentPage: 1,
       isLoaded: false,
-      data: {
+      modules: {
 
       }
     };
@@ -73,23 +58,22 @@ export default {
   async mounted() {
     this.currentPage = 1;
     this.isLoading = false;
-    this.data = await this.getModules();
-
+    this.modules = await this.getModules();
   },
 
   methods: {
     async getModules(){
       const baseURL = new URL(url).protocol + '//' + window.location.host;
       const result = await window.axios.get(baseURL + '/1/apps/home');
-      const data = await result.data;   
-      console.log(result)
+      const data = await result.data.data;   
 
       return data;
     },
     filterByCategory(category) { 
+      console.log(category.param)
       this.$router.replace({ 
         name: "categories",
-        params: {category: `${category}`}
+        params: {category: `${category.param}`}
       });
     },
 

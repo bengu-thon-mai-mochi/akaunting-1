@@ -28,7 +28,9 @@ class Home extends Controller
         $free = $this->getFreeModules($data);
         $installed = Module::all()->pluck('enabled', 'alias')->toArray();
 
-        return $this->response('apps.home.index', compact( 'paid', 'new', 'free', 'installed'));
+        $pageData = array('paid' => $paid,'new' => $new, 'free' => $free);
+
+        return $this->response('modules.home.index', compact('pageData'));
     }
 }
 
