@@ -40,29 +40,24 @@
             <div class="tab-content">
               <div id="description" class="tab-pane fade show active">
                 <div v-html="appData.description"></div>
-                <div>
-                  <div v-if="appData.video" class="el-carousel el-carousel--horizontal">
-                    <div class="el-carousel__container" style="height: 430px;">
-                      <button type="button" class="el-carousel__arrow el-carousel__arrow--left"><i class="el-icon-arrow-left"></i></button>
-                      <button type="button" class="el-carousel__arrow el-carousel__arrow--right"><i class="el-icon-arrow-right"></i></button>
-                      <div class="el-carousel__item is-active is-animating" style="transform: translateX(0px) scale(1);">
-                        <!---->
-                        <iframe
-                          height="365px"
-                          :src="appData.video.link"
-                          frameborder="0"
-                          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                          allowfullscreen="allowfullscreen"
-                          class="carousel-frame w-100"
-                        ></iframe>
-                        <div class="carousel-description py-2">
-                         {{appData.name}}
-                        </div>
-                      </div>
-                    </div>
-                    <!---->
-                  </div>
-                  <!---->
+                <div v-if="appData.video">
+                  <akaunting-carousel 
+                      :name="appData.name" 
+                      :video="appData.video.link" 
+                      :screenshots="appData.screenshots"
+                      height="430"
+                      arrow="always"
+                  >
+                  </akaunting-carousel>
+                </div>
+                <div v-else-if="appData.screenshots">
+                   <akaunting-carousel 
+                      :name="appData.name" 
+                      :screenshots="appData.screenshots"
+                      height="430"
+                      arrow="always"
+                  >
+                  </akaunting-carousel>
                 </div>
               </div>
               <div id="review" class="tab-pane fade">
@@ -108,9 +103,9 @@
               </div>
             </div>
           <div class="card-footer">
-            <router-link :to="appData.action_url" class="btn btn-success btn-block">
+            <a :href="appData.action_url" class="btn btn-success btn-block">
               Buy Now
-            </router-link>
+            </a>
             <div class="text-center mt-3" v-html="appData.purchase_desc">
             </div>
           </div>
@@ -164,6 +159,7 @@ import Rating from './components/Rating.vue';
 import AkauntingModal from '../../components/AkauntingModal.vue';
 import Pagination from './components/Pagination.vue';
 import Review from './components/Review.vue';
+import AkauntingCarousel from '../../components/AkauntingCarousel.vue';
 
 export default {
   components: { 
@@ -171,7 +167,8 @@ export default {
     NavButtons,
     AkauntingModal,
     Review,
-    Pagination 
+    Pagination,
+    AkauntingCarousel
   },
   
   name: "AppDetail",

@@ -13,7 +13,7 @@
             :cardHeader="app.name" 
             :imgSource="Object.values(app.files).flat()[0]['path_string']"
             :rating="app.vote"
-            :price="app.price"
+            :price="app.price ? app.price : 'Free'"
             :discountPrice="app.special_price ? app.special_price : ''"
             :reviews="app.total_review"
           > 

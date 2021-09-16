@@ -166,6 +166,8 @@ class Tiles extends Controller
         $modules = $this->getSearchModules($data);
         $installed = Module::all()->pluck('enabled', 'alias')->toArray();
 
-        return $this->response('modules.tiles.index', compact('title', 'modules', 'keyword', 'installed'));
+        $pageData = array('title' => $title, $modules, $installed, $keyword);
+
+        return $this->response('modules.tiles.index', compact('pageData'));
     }
 }

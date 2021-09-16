@@ -19,6 +19,7 @@ const PaidApps = () => import('./views/apps/PaidApps.vue');
 const AppDetail = () => import('./views/apps/AppDetail.vue');
 const Vendors = () => import('./views/apps/Vendors.vue');
 const PaginationLayout = () => import('./views/apps/PaginationLayout.vue');
+const Docs = () => import('./views/apps/Docs.vue');
 
 var global_path = new URL(url).protocol + '//' + window.location.host;
 var base_path = url.replace(global_path, '');
@@ -47,6 +48,11 @@ const router = new VueRouter({
                         default: Categories,
                         paginationHelper: PaginationLayout
                     },
+                },
+                {
+                    path: 'docs/:appName',
+                    name: 'docs',
+                    component: Docs
                 },
                 {
                     path: 'my',

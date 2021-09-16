@@ -1,7 +1,7 @@
 <template>
     <div class="card">
       <div class="card-body">
-        <form method="POST" action="https://app.akaunting.com/113091/apps/api-key" accept-charset="UTF-8" id="form-app" role="form" enctype="multipart/form-data" class="form-loading-button">
+        <form method="POST" :action="`${path}` + '/apps/api-key'" accept-charset="UTF-8" id="form-app" role="form" enctype="multipart/form-data" class="form-loading-button">
           <input name="_token" type="hidden" value="xZYEv7ZyANRi7UZ4Ehfz47p3Ops7HSdf2SGyD2Ay" />
           <div class="card-body">
             <div class="row">
@@ -15,12 +15,11 @@
                   </div>
                   <input
                     data-name="api_key"
-                    data-value="fe6f1686-db66-402b-8068-ebc726cfe2d4"
+                    v-model="inputValue"
                     placeholder="Enter API Key"
                     required="required"
                     name="api_key"
                     type="text"
-                    value="fe6f1686-db66-402b-8068-ebc726cfe2d4"
                     id="api_key"
                     class="form-control"
                   />
@@ -61,10 +60,18 @@ export default {
     return {
       translations: {
       },
+      inputValue: ""
     };
   },
 
-  created() {
+  computed:  {
+    path() {
+      const baseURL = new URL(url).protocol + '//' + window.location.host;
+      const companyPath = url.replace(baseURL, '' );
+      const path = baseURL + companyPath;
+
+      return path;
+    }
   },
 
 };

@@ -2,13 +2,13 @@
         <div class="card">
             <div class="card-header py-2">
               <h4 class="ml--3 mb-0 float-left">
-                <router-link :to="appLink"> 
+                <router-link :to="'/apps/' + appLink"> 
                     {{ cardHeader }} 
                 </router-link>
               </h4>
             </div>
 
-              <router-link :to="appLink">
+              <router-link :to="'/apps/' + appLink">
                 <img 
                     :src="imgSource" 
                     :alt="cardHeader" 

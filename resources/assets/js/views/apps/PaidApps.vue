@@ -14,17 +14,46 @@ export default {
     return {
       pageData: {
       },
+      last_page: 0,
       current_page: '1',
       title: '',
     };
   },
 
-  async mounted() {
-      const { name } = this.$route;
-      const result =  await window.axios.get(this.path + '/apps/' + name);
-      
+  mounted() {
+    this.fetchData();
+    this.$emit('update-page-limit', this.last_page);
+  },
+  
+  methods: {
+    async fetchData(query) {
+      let result;
+
+      !query 
+        ? 
+          result =  await window.axios.get(this.path + this.$route.fullPath)
+        : 
+          result =  await window.axios.get(this.path + this.$route.path + query);
+
       this.title = result.data.data.title;
       this.pageData = result.data.data[0];
+
+      this.current_page= result.data.data[0].current_page;
+      this.last_page = result.data.data[0].last_page;
+    },
+
+  },
+
+  watch: {
+    $route(currentPage){
+      console.log(this.current_page)
+      console.log(currentPage.query.page)
+      currentPage.query.page > this.current_page 
+        ? 
+      this.fetchData(this.pageData.next_page_url)
+        : 
+      this.fetchData(this.pageData.prev_page_url)
+    }
   },
 
   computed: {

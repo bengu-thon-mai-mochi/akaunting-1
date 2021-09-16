@@ -1,5 +1,5 @@
 <template>
-    <card-views-layout :data="pageData" :title="title"></card-views-layout>
+    <card-views-layout :data="pageData" :title="title" :current_page="current_page"></card-views-layout>
 </template>
 
 <script>
@@ -12,17 +12,26 @@ export default {
     return {
       pageData: {
       },
-      current_page: '1',
+      current_page: 1,
       title: '',
     };
   },
 
-  async created() {
+  async mounted() {
       const { name } = this.$route;
-      const result =  await window.axios.get(this.path + '/apps/' + name);
+      const { page } = this.$route.query;
+
+      let result; 
+
+      !page 
+          ? result =  await window.axios.get(this.path + '/apps/' + name)
+          : result =  await window.axios.get(this.path + '/apps/' + `${name}?page=${page}`);
       
+      
+      console.log(result)
       this.title = result.data.data.title;
-      this.pageData = result.data.data[0]
+      this.pageData = result.data.data[0];
+      this.current_page = this.pageData.current_page;
   },
 
   computed: {

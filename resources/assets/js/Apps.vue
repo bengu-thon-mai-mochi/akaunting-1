@@ -11,8 +11,17 @@
       ></SearchBar>
 
       <div>
-          <router-view v-show="!isLoading" :modules="modules"></router-view>
-          <router-view v-show="!isLoading" name="paginationHelper" @handlePagination="handlePagination"></router-view>
+          <router-view 
+            v-show="!isLoading" 
+            :modules="modules"
+            @update-page-limit="setPage($event)"  
+          ></router-view>
+          <router-view 
+            name="paginationHelper"
+            v-show="!isLoading" 
+            :last_page="last_page" 
+            @handlePagination="handlePagination"
+          ></router-view>
       </div>
 
      <Footer></Footer>
@@ -39,24 +48,15 @@ export default {
   data() {
     return {
       isLoading: false,
-      translations: {
-      },
-      formError: "Error occurred",
+      formError: "",
       selectedCategory: "",
-      currentPage: 1,
-      isLoaded: false,
+      last_page: 1,
       modules: {
-
       }
     };
   },
 
-  created() {
-    
-  },
-
   async mounted() {
-    this.currentPage = 1;
     this.isLoading = false;
     this.modules = await this.getModules();
   },
@@ -75,6 +75,9 @@ export default {
         name: "categories",
         params: {category: `${category.param}`}
       });
+    },
+    setPage(page) {
+      this.last_page = page;
     },
 
     filterByKeyword(searchQuery) { 
@@ -99,7 +102,7 @@ export default {
        //isLoaded = true;
     },
 
-    handlePagination(){
+    handlePagination(x){
       const { fullPath, name } = this.$route;
       const pageNumber =  `${this.currentPage++}`
 

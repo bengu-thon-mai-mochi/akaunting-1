@@ -9,7 +9,7 @@
             :cardHeader="module.name" 
             :imgSource="Object.values(module.files).flat()[0]['path_string']"
             :rating="module.vote"
-            :price="module.price"
+            :price="module.price ? module.price : 'FREE'"
             :discountPrice="module.special_price ? module.special_price : ''"
             :reviews="module.total_review"
           > 
