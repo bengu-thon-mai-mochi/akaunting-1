@@ -6,6 +6,12 @@
                     {{ cardHeader }} 
                 </router-link>
               </h4>
+
+              <span class="mr--3 float-right" v-if="isInstalled">
+                  <span class="badge bg-green text-white">
+                    {{ translations.general.installed }}
+                  </span>
+              </span>
             </div>
 
               <router-link :to="'/apps/' + appLink">
@@ -20,9 +26,17 @@
 
                 <div class="float-left ml--3 mt--1">
                   <i 
+                    v-show="rating"
                     class="fa fa-star text-xs text-yellow"
                     v-for="(n, index) in rating"
                     :key="index"
+                    >
+                 </i>
+                  <i 
+                    v-show="!rating"
+                    class="far fa-star text-xs"
+                    v-for="(n, index) in 5"
+                    :key="uid[index]"
                     >
                  </i>
                     <small>( {{ reviews }} )</small>
@@ -47,6 +61,10 @@ export default {
             type: String,
             required: true
         },
+        isInstalled: {
+          type: Boolean,
+          default: false,
+        },
         cardHeader: {
             type: String,
             required: true
@@ -68,6 +86,13 @@ export default {
         rating: {
             type: Number
         },
+        translations: {
+          type: Object
+        },
+    },
+
+    computed: {
+      uid: () => [6,7,8,9,10]
     }
 }
 </script>

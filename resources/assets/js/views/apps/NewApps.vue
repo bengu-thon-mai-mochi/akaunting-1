@@ -1,7 +1,5 @@
 <template>
-  <keep-alive>
-    <card-views-layout :data="pageData" :title="title"></card-views-layout>
-  </keep-alive>
+    <card-views-layout :translations="translations" :data="modules.modules.data" :title="modules.title" :isInstalled="isInstalled"></card-views-layout>
 </template>
 
 <script>
@@ -10,32 +8,16 @@ export default {
   components: { CardViewsLayout },
   name: "NewApps",
 
-  data() {
-    return {
-      pageData: {
-      },
-      current_page: '1',
-      title: '',
-    };
+  props: {
+    modules: {
+      type: Object | Array
+    },
+    isInstalled: {
+      type: Array,
+    },
+    translations: {
+      type: Object
+    },
   },
-
-  async mounted() {
-      const { name } = this.$route;
-      const result =  await window.axios.get(this.path + '/apps/' + name);
-      
-      this.title = result.data.data.title;
-      this.pageData = result.data.data[0];
-  },
-
-  computed: {
-    path() {
-      const baseURL = new URL(url).protocol + '//' + window.location.host;
-      const companyPath = url.replace(baseURL, '' );
-      const path = baseURL + companyPath;
-
-      return path;
-    }
-  }
-
 };
 </script>

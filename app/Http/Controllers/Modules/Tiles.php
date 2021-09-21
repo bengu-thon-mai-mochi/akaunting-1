@@ -67,8 +67,7 @@ class Tiles extends Controller
         $modules = !empty($data->modules) ? $data->modules : [];
         $installed = Module::all()->pluck('enabled', 'alias')->toArray();
 
-        $pageData = array( 'title' => $title , $modules, $installed );
-       
+        $pageData = array('title' => $title,'modules'=>$modules,'installed'=>$installed);
 
         return $this->response('modules.tiles.index', compact('pageData'));
     }
@@ -92,7 +91,7 @@ class Tiles extends Controller
         $modules = $this->getPaidModules($data);
         $installed = Module::all()->pluck('enabled', 'alias')->toArray();
 
-        $pageData = array('title' => $title, $modules, $installed);
+        $pageData = array('title' => $title,'modules'=>$modules,'installed'=>$installed);
 
         return $this->response('modules.tiles.index', compact('pageData'));
     }
@@ -116,7 +115,7 @@ class Tiles extends Controller
         $modules = $this->getNewModules($data);
         $installed = Module::all()->pluck('enabled', 'alias')->toArray();
 
-        $pageData = array('title' => $title, $modules, $installed);
+        $pageData = array('title' => $title,'modules'=>$modules,'installed'=>$installed);
 
         return $this->response('modules.tiles.index', compact('pageData'));
     }
@@ -140,7 +139,7 @@ class Tiles extends Controller
         $modules = $this->getFreeModules($data);
         $installed = Module::all()->pluck('enabled', 'alias')->toArray();
 
-        $pageData = array('title' => $title, $modules, $installed);
+        $pageData = array('title' => $title,'modules' =>  $modules,'installed' =>  $installed);
 
         return $this->response('modules.tiles.index', compact('pageData'));
     }
@@ -166,7 +165,7 @@ class Tiles extends Controller
         $modules = $this->getSearchModules($data);
         $installed = Module::all()->pluck('enabled', 'alias')->toArray();
 
-        $pageData = array('title' => $title, $modules, $installed, $keyword);
+        $pageData = array('title' => $title, 'modules' => $modules, 'installed' => $installed,'keyword' => $keyword);
 
         return $this->response('modules.tiles.index', compact('pageData'));
     }

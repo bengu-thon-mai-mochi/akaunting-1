@@ -12,7 +12,7 @@
                       :options="values"
                       v-model="selected"
                       @change="handleSelect"
-                      placeholder="SELECT!!!"
+                      :placeholder="translations.searchBar.category_placeHolder"
                     >
                       <el-option
                           v-for="(category, index) in values"
@@ -37,7 +37,7 @@
                           v-model="query" 
                           type="text" 
                           @keydown.enter="handleEnter"
-                          placeholder="Type to search.." 
+                          :placeholder="translations.searchBar.search_placeholder" 
                           autocomplete="off" 
                           class="form-control form-control-sm d-inline-block w-100"
                         >
@@ -45,9 +45,9 @@
               </div>
 
                 <div class="col-xs-12 col-sm-4 text-center">
-                   <router-link to="/apps/paid" class="btn btn-white btn-sm" exact>Paid Apps</router-link>
-                  <router-link to="/apps/new" class="btn btn-white btn-sm">New</router-link>
-                    <router-link to="/apps/free" class="btn btn-white btn-sm">Free Apps</router-link>
+                   <router-link to="/apps/paid" class="btn btn-white btn-sm" exact>{{ translations.general.top_paid }}</router-link>
+                   <router-link to="/apps/new" class="btn btn-white btn-sm">{{ translations.general.new }}</router-link>
+                  <router-link to="/apps/free" class="btn btn-white btn-sm">{{ translations.general.top_free }}</router-link>
                 </div>
             </div>
 
@@ -71,16 +71,20 @@ export default {
       [OptionGroup.name]: OptionGroup,
     },
 
+    props: {
+      values : {
+        type: Object | Array,
+      },
+      translations: {
+        type: Object | Array,
+      },
+    },
+
     data() {
       return {
         query: '',
         selected: '',
-        values: {},
       }
-    },
-
-    async mounted() {
-      this.values = window.app_categories;
     },
 
     methods: {

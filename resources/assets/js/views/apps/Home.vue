@@ -1,7 +1,7 @@
 <template>
   <div> 
     <div v-for="(module, index) in modules" :key="index">
-      <h2>Top Paid</h2>
+      <h2> {{ translations.general[`top_${[index][0]}`] }} </h2>
       <div class="row">
         <div 
           v-for="(app, index) in module.data" 
@@ -13,9 +13,11 @@
             :cardHeader="app.name" 
             :imgSource="Object.values(app.files).flat()[0]['path_string']"
             :rating="app.vote"
-            :price="app.price ? app.price : 'Free'"
+            :price="app.price ? app.price : translations.general.free"
             :discountPrice="app.special_price ? app.special_price : ''"
             :reviews="app.total_review"
+            :isInstalled="isInstalled.includes(app.slug)"
+            :translations="translations"
           > 
           </AppCard>
         </div>
@@ -35,6 +37,12 @@ export default {
   props: {
     modules: {
       type: Object,
+    },
+    isInstalled: {
+      type: Array,
+    },
+    translations: {
+      type: Object | Array,
     },
   },
 };

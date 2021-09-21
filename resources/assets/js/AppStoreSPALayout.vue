@@ -5,11 +5,5 @@
 <script>
 export default {
   name: "AppStoreSPALayout",
-
-  data() {
-    return {
-      data: {}
-    };
-  },
 };
 </script>

@@ -20,10 +20,13 @@ export default {
     name: 'Footer',
 
     props: {
-        title: {
-            type: String,
-            default: 'Title'
-        },
+      title: {
+        type: String,
+        default: 'Title'
+      },
+      translations: {
+        type: Object
+      },
     }
 }
 </script>

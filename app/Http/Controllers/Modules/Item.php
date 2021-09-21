@@ -275,11 +275,9 @@ class Item extends Controller
     public function uninstall($alias)
     {
         try {
-            $name = module($alias)->getName();
-
             $this->dispatch(new UninstallModule($alias, company_id()));
 
-            $message = trans('modules.uninstalled', ['module' => $name]);
+            $message = trans('modules.uninstalled', ['module' => $alias]);
 
             flash($message)->success();
         } catch (\Exception $e) {

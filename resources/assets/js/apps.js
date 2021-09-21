@@ -2,8 +2,10 @@ require('./bootstrap');
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import DashboardPlugin from './plugins/dashboard-plugin';
 
 Vue.use(VueRouter);
+Vue.use(DashboardPlugin);
 
 import Apps from './Apps.vue';
 import AppStoreSPALayout from './AppStoreSPALayout.vue';
@@ -30,8 +32,20 @@ const router = new VueRouter({
 
     routes: [
         {
-            path: '/apps',
+            path: '/',
+            component: AppStoreSPALayout,
+            props: {
+                translations: window.module_translations,
+                categories: window.app_categories,
+            },
+        },
+        {
+            path: '/apps/',
             component: Apps,
+            props: {
+                translations: window.module_translations,
+                categories: window.app_categories,
+            },
             children: [
                 {
                     path: 'home',
@@ -67,7 +81,6 @@ const router = new VueRouter({
                         default: PaidApps,
                         paginationHelper: PaginationLayout
                     },
-                    props: route => ({ query: route.query.q })
                 },
                 {
                     path: 'new',
@@ -88,15 +101,17 @@ const router = new VueRouter({
                 {
                     path: 'vendors/:vendorname',
                     name: 'vendors',
-                    component: Vendors,
+                    components: {  
+                        default: Vendors,
+                        paginationHelper: PaginationLayout
+                    },
                 },
                 {
                     path: 'search',
                     name: 'search',
-                    components: { default: Search,  search: Search },
-                    props: {
-                        default: true,
-                        search: route => ({ keyword: route.query.q })
+                    components: {  
+                        default: Search,
+                        paginationHelper: PaginationLayout
                     },
                 },
                 {
@@ -107,7 +122,7 @@ const router = new VueRouter({
                 {
                     path: ':appName',
                     name: 'appDetail',
-                    component: AppDetail
+                    component: AppDetail,
                 },
             ],
         },
@@ -128,8 +143,16 @@ const router = new VueRouter({
     }
 });
 
+router.beforeEach((to, from, next) => {
+    console.log(window)
+    console.log(window.module_translations)
+     console.log(window.app_categories)
+    console.log(from.props)
+    next()
+})
+
 new Vue({
-  el    : '#app',
+  el    : '#main-body',
   router,
   render: h => h(AppStoreSPALayout),
 });

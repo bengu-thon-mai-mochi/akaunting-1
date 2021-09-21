@@ -3,19 +3,19 @@
     <div class="col-md-6 text-left">
       <router-link 
         v-if="this.$route.query.page > 1"
-        :to="`${this.$route.name}?page=${Number(this.$route.query.page) - 1}`" 
+         :to="`${this.$route.path}?page=${Number(this.$route.query.page) - 1}`" 
         class="btn btn-white btn-sm"
       > 
-        Back
+        {{ translations.actions.previous }}
       </router-link>
     </div>
     <div class="col-md-12 text-right">
       <router-link
-        v-if="last_page - 1 != this.$route.query.page"
-        :to="`${this.$route.name}?page=${this.$route.query.page ? Number(this.$route.query.page) + 1 : 2}`" 
+        v-if="this.$route.query.page ? this.$route.query.page < last_page : last_page !== 1"
+        :to="`${this.$route.path}?page=${this.$route.query.page ? Number(this.$route.query.page) + 1 : 2}`" 
         class="btn btn-white btn-sm"
       > 
-        Next
+        {{ translations.actions.next }}
       </router-link>
     </div>
   </div>
@@ -30,6 +30,10 @@ export default {
         type: Number | String,
         default: 1
       },
-    }
+
+    translations: {
+      type: Object
+    },
+  },
 }
 </script>

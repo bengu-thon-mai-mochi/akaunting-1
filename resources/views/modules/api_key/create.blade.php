@@ -1,7 +1,5 @@
 @extends('layouts.modules')
 
-@section('title', trans('modules.api_key'))
-
 @section('content')
 @endsection
 

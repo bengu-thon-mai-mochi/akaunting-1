@@ -1,5 +1,5 @@
  <template>
-   <div class="row mt-4">
+   <div v-if="paginationData.last_page" class="row mt-4">
     <div class="col-md-6">
         <span class="table-text d-lg-block">
             {{paginationData.from}}/{{ paginationData.to }} of {{ paginationData.total}} records.
