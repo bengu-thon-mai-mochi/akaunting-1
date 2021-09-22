@@ -1,7 +1,14 @@
 <template>
     <div class="card">
       <div class="card-body">
-        <form method="POST" :action="`${path}` + '/apps/api-key'" accept-charset="UTF-8" id="form-app" role="form" enctype="multipart/form-data" class="form-loading-button">
+        <form 
+          @submit.prevent="onSubmit($event)"
+          accept-charset="UTF-8" 
+          id="form-app" 
+          role="form" 
+          ref="form"
+          enctype="multipart/form-data" 
+          class="form-loading-button">
           <input name="_token" type="hidden" value="xZYEv7ZyANRi7UZ4Ehfz47p3Ops7HSdf2SGyD2Ay" />
           <div class="card-body">
             <div class="row">
@@ -49,7 +56,8 @@
 </template>
 
 <script>
-import Footer from './components/Footer.vue'
+import Footer from './components/Footer.vue';
+import Global from '../../mixins/global';
 
 export default {
   name: "ApiKey",
@@ -62,12 +70,36 @@ export default {
     },
   },
 
+  mixins: [  
+    Global 
+  ],
+
   data() {
     return {
-      translations: {
-      },
       inputValue: ""
     };
+  },
+
+  methods: {
+    onSubmit() {
+      const formData = new FormData(this.$refs["form"]);
+      let data_name = {};
+
+      for (let [key, val] of formData.entries()) {
+        Object.assign(data_name, {
+          [key]: val,
+        });
+      }
+    /*
+      Object.assign(data_name, {
+          ["api_key"]: api_key,
+          ["_token"]: window.Laravel.csrfToken,
+      });
+*/
+     // formData.append(data_name["api_key"], data_name["_token"]);
+
+      this.$emit('on-submit', formData)
+    }
   },
 
   computed:  {

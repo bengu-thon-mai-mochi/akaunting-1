@@ -5,7 +5,6 @@
       :translations="this.$attrs.translations"
       :showButtons="showButtons"
     ></Header>
-
       <SearchBar 
         v-show="this.$route.name !== 'apiKey'" 
         :values="this.$attrs.categories"
@@ -19,7 +18,11 @@
             :isInstalled="isInstalled"
             :installed= "installed"
             :translations="this.$attrs.translations"
+            @on-submit="handleSubmit"
           ></router-view>
+        <div>
+            <spinner class="text-center " v-show="isLoading"></spinner>
+        </div>
           <router-view 
             name="paginationHelper"
             v-show="!isLoading" 
@@ -57,7 +60,7 @@ export default {
 
   data() {
     return {
-      isLoading: false,
+      isLoading: true,
       installed: [],
       isInstalled: [],
       isDisabled: false,
@@ -68,12 +71,13 @@ export default {
     };
   },
 
-  mounted() {
+  async mounted() {
     window.axios.get(this.path + '/apps/my').then(res => {
         this.installed = res.data.data.installed;
         this.isInstalled = Object.keys(res.data.data.installed);
     }); 
     this.getData();  
+    this.isLoading = false;
   },
 
   methods: {
@@ -109,6 +113,50 @@ export default {
       const pageNumber =  `${this.currentPage++}`
 
       this.$router.push(`?page=${pageNumber}`);
+    },
+
+    handleSubmit(data) {
+      this.$emit('onSubmit', data);
+
+      this.isLoading = true;
+
+      window.axios({
+                method: "POST",
+                url: this.path + "/apps/api-key",
+                data: data,
+                headers: {
+                    "X-CSRF-TOKEN": window.Laravel.csrfToken,
+                    "X-Requested-With": "XMLHttpRequest",
+                    "Content-Type": "multipart/form-data",
+                },
+            })
+            .then((response) => {
+                this.onSuccess(response);
+            })
+            .catch((error) => {
+              this.onFail(error);
+            });
+    },
+
+    onSuccess(response) {
+        this.errors = {};
+      
+        this.isLoading = false;
+
+        if (response.data.redirect) {
+            this.isLoading = true;
+
+            window.location.href = response.data.redirect;
+        }
+
+        this.response = response.data;
+    },
+
+    onFail(error) {
+        console.log(error)
+         this.errors = error.response.data.errors;
+
+         this.isLoading = false;
     },
   },
   

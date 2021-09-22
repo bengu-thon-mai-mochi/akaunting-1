@@ -1,6 +1,10 @@
 <template>
-  <div>
-    <akaunting-modal :show="show" @cancel="() => show = false"> 
+<div>
+  <div v-if="isLoading">
+      <spinner class="text-center py-8"></spinner>
+  </div>  
+  <div v-else>
+    <akaunting-modal v-show="showFaq" @cancel="() => showFaq = false"> 
       <template #modal-header>
         <div>Some heading</div>
       </template>
@@ -13,16 +17,17 @@
     </akaunting-modal>
     <akaunting-modal :show="installation.show" @cancel="() => installation.show = false"> 
       <template #modal-header>
-        <div>{{ 'TİTLE' }}</div>
+        <div>{{ translations.installation.header }}</div>
       </template>
       <template #modal-body>
-        <div>
+        <div class="modal-body">
           <el-progress 
             :text-inside="true" 
             :stroke-width="24" 
             :percentage="installation.total" 
             :status="installation.status">
           </el-progress>
+          <div id="progress-text" class="mt-3"></div>
           <div id="progress-text" class="mt-3" v-html="installation.html"></div>
         </div>
       </template>
@@ -30,12 +35,11 @@
         <div hidden></div>
       </template>
     </akaunting-modal>
-    <spinner v-show="isLoading"></spinner>
     <div v-show="!isloading" class="row">
       <div class="col-md-8">
         <div class="row">
           <div class="col-xs-6 col-sm-6">
-            <div class="float-left"><h3>{{appData.name}}</h3></div>
+            <div class="float-left"><h3>{{ appData.name }}</h3></div>
           </div>
           <div class="col-xs-6 col-sm-6">
             <div class="float-right">
@@ -47,11 +51,11 @@
           <ul id="tabs-icons-text" role="tablist" class="nav nav-pills nav-fill flex-column flex-md-row">
             <li class="nav-item">
               <a href="#description" data-toggle="tab" aria-selected="false" class="nav-link mb-sm-2 mb-md-0 active">
-                {{ translations.detail.description }}
+                {{ this.$attrs.translations.detail.description }}
               </a>
             </li>
             <li class="nav-item">
-              <a href="#review" data-toggle="tab" aria-selected="false" class="nav-link mb-sm-2 mb-md-0">    {{ translations.detail.reviews }} ( {{ appData.total_review }} ) </a>
+              <a href="#review" data-toggle="tab" aria-selected="false" class="nav-link mb-sm-2 mb-md-0">    {{ this.$attrs.translations.detail.reviews }} ( {{ appData.total_review }} ) </a>
             </li>
           </ul>
         </div>
@@ -92,6 +96,11 @@
                       :review="review">
                     </Review>
                   </div>
+                  <div 
+                    v-else
+                  > 
+                    {{ translations.reviews.na }}
+                  </div>
                   <pagination :paginationData="paginationData" @handle-update="handlePagination"></pagination>
                 <div class="card-footer mx--4 mb--4">
                   <div class="row"><div class="col-md-12 text-right"></div></div>
@@ -109,7 +118,7 @@
               <div class="text-center">
                 <strong v-if="!discountPrice">
                   <div class="text-center mt-3">
-                    {{ appData.price }}
+                    {{ appData.price === 0 ? translations.general.free : appData.price }}
                   </div>
                 </strong>
                 <strong v-else="discountPrice">
@@ -140,7 +149,7 @@
                 {{translations.actions.install}}
               </button>
             </div>
-            <div class="text-center mt-3" v-html="appData.purchase_desc">
+            <div class="text-center mt-3" @click="onShowFaq" v-html="appData.purchase_desc">
             </div>
           </div>
           </div>
@@ -170,7 +179,7 @@
                 <td class="col-7 text-right">{{ appData.updated_at }}</td>
               </tr>
               <tr class="row">
-                <th class="col-5"> {{  translations.detail.category }} </th>
+                <th class="col-5"> {{  translations.detail.categories }} </th>
                 <td class="col-7 text-right"><router-link :to="`/apps/categories/${appData.category.slug}`">{{ appData.category.name }}</router-link></td>
               </tr>
               <tr class="row">
@@ -185,6 +194,7 @@
       </div>
      </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -219,7 +229,7 @@ export default {
 
   data() {
     return {
-      show: false,
+      showFaq: false,
       appData: {},
       reviewPages: [],
       pageReviews: {},
@@ -236,6 +246,7 @@ export default {
         status: 'success',
         html: ''
       },
+      isLoading: true,
       translations: {},
     };
   },
@@ -255,7 +266,7 @@ export default {
 
   methods: {
     onShowFaq() {
-      this.show = true;
+      this.showFaq = true;
     },
 
     async getPageData(param){

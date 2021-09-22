@@ -199,7 +199,7 @@ Route::group(['as' => 'apps.', 'prefix' => 'apps'], function () {
         Route::get('categories/{alias}', 'Modules\Tiles@categoryModules')->name('categories.show');
         Route::get('vendors/{alias}', 'Modules\Tiles@vendorModules')->name('vendors.show');
         Route::get('docs/{alias}', 'Modules\Item@documentation')->name('docs.show');
-         Route::post('categories/', 'Modules\Tiles@categoryModules')->name('install');
+        Route::post('categories/', 'Modules\Tiles@categoryModules')->name('install');
 
         Route::get('paid', 'Modules\Tiles@paidModules')->name('paid');
         Route::get('new', 'Modules\Tiles@newModules')->name('new');

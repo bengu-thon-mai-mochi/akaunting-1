@@ -364,7 +364,7 @@ export default class Form {
         .then(this.onSuccess.bind(this))
         .catch(this.onFail.bind(this));
     }
-
+    
     submit() {
         FormData.prototype.appendRecursive = function(data, wrapper = null) {  
             for (var name in data) {

@@ -12,7 +12,7 @@
             v-show="!rating"
             class="far fa-star text-xs"
             v-for="(n, index) in 5"
-            :key="index"
+            :key="index + 5"
         >
         </i>
     </div>

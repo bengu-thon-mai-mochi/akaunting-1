@@ -144,10 +144,6 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    console.log(window)
-    console.log(window.module_translations)
-     console.log(window.app_categories)
-    console.log(from.props)
     next()
 })
 

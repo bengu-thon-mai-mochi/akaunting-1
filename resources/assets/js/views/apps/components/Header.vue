@@ -5,7 +5,7 @@
                 <div class="row py-4 align-items-center">
                     <div class="  col-sm-12 col-sm-8  col-md-7 align-items-center">
                         <h2 class="d-inline-flex mb-0 long-texts">
-                            {{ translations.header.title || 'title' }}
+                            {{ this.$route.name === 'apiKey' ? translations.header.api_key  : translations.header.title  }}
                         </h2>
                     </div>
                     <div v-if="showButtons" class="col-sm-12 col-sm-4 col-md-5">
@@ -32,6 +32,6 @@ export default {
         translations : {
             type: Object | Array,
         }
-    }
+    },
 }
 </script>
