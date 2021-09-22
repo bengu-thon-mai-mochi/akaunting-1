@@ -36,9 +36,10 @@ export default {
   props: {
     title: {
       type: String,
+      default: ''
     },
     data: {
-      type: Array | Object ,
+      type: Array | Object,
     },
     isInstalled: {
       type: Array,

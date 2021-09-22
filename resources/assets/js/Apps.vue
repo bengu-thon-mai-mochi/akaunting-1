@@ -90,6 +90,7 @@ export default {
 
     filterByCategory(category) { 
       this.selectedCategory = category;
+
       this.$router.replace({ 
         name: "categories",
         params: {category: `${category.param}`}
@@ -186,3 +187,9 @@ export default {
   }
 };
 </script>
+
+<style>
+  .btn.disabled, .btn:disabled, .btn:not(:disabled):not(.disabled).active, .btn:not(:disabled):not(.disabled):active {
+    box-shadow: 0 4px 6px rgb(30 31 57 / 11%), 0 1px 3px rgb(0 0 0 / 8%) !important;
+  }
+</style>

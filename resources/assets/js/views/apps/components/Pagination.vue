@@ -32,7 +32,7 @@
             </button>
         </li>
         <li 
-            :class="`page-item  ${currentPage === paginationData.last_page ? isDisabled : ''}` "
+            :class="`page-item ${currentPage === paginationData.last_page ? isDisabled : ''}` "
         >
             <button 
                 type="button" 
@@ -87,3 +87,9 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+    .page-item.active.disabled > button {
+        color: #fff;
+    }  
+</style>

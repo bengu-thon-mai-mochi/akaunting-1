@@ -1,18 +1,24 @@
 <template>
   <div>
-     <card-views-layout :translations="translations" :data="purchased"  :isInstalled="isInstalled"></card-views-layout>
-     <card-views-layout :translations="translations" :data="installed" :isInstalled="isInstalled"></card-views-layout>
+    <div>
+      <spinner class="text-center py-8" v-show="isLoading"></spinner>
+    </div>
+    <div v-show="!isLoading">
+      <card-views-layout :title="translations.my.purchased" :translations="translations" :data="purchased"  :isInstalled="isInstalled"></card-views-layout>
+      <card-views-layout :title="translations.my.installed" :translations="translations" :data="installed" :isInstalled="isInstalled"></card-views-layout>
+    </div>
   </div>
 </template>
 
 <script>
 import CardViewsLayout from './CardViewsLayout.vue';
 import NoApp from './components/NoApp.vue';
+import Spinner from './components/Spinner.vue';
 
 export default {
   name: "MyApps",
 
-  components: { NoApp, CardViewsLayout },
+  components: { NoApp, CardViewsLayout, Spinner },
 
   props: {
     isInstalled: {
@@ -27,6 +33,7 @@ export default {
     return { 
       installed: [],
       purchased: [],
+      isLoading: true,
     }
   },
 
@@ -46,6 +53,8 @@ export default {
           this.purchased = null : 
           this.purchased = this.filterArrayByAppName(modules, purchased);
       }); 
+
+      this.isLoading = false;
   },
 
   methods: {

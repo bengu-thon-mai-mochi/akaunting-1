@@ -25,32 +25,27 @@
                 </div>
               <div>
             </div>
-
-              </div>
-
-              <div class="vr d-none d-sm-block"></div>
-
-              <div class="col-xs-12 col-sm-6">
-                    <div class="searh-field tags-input__wrapper">
-                        <input 
-                          name="keyword" 
-                          v-model="query" 
-                          type="text" 
-                          @keydown.enter="handleEnter"
-                          :placeholder="translations.searchBar.search_placeholder" 
-                          autocomplete="off" 
-                          class="form-control form-control-sm d-inline-block w-100"
-                        >
-                    </div>
-              </div>
-
+          </div>
+          <div class="vr d-none d-sm-block"></div>
+          <div class="col-xs-12 col-sm-6">
+            <div class="searh-field tags-input__wrapper">
+              <input 
+                name="keyword" 
+                v-model="query" 
+                type="text" 
+                @keydown.enter="handleEnter"
+                :placeholder="translations.searchBar.search_placeholder" 
+                autocomplete="off" 
+                class="form-control form-control-sm d-inline-block w-100"
+              >
+            </div>
+                </div>
                 <div class="col-xs-12 col-sm-4 text-center">
-                   <router-link to="/apps/paid" class="btn btn-white btn-sm" exact>{{ translations.general.top_paid }}</router-link>
-                   <router-link to="/apps/new" class="btn btn-white btn-sm">{{ translations.general.new }}</router-link>
+                  <router-link to="/apps/paid" class="btn btn-white btn-sm" exact>{{ translations.general.top_paid }}</router-link>
+                  <router-link to="/apps/new" class="btn btn-white btn-sm">{{ translations.general.new }}</router-link>
                   <router-link to="/apps/free" class="btn btn-white btn-sm">{{ translations.general.top_free }}</router-link>
                 </div>
-            </div>
-
+              </div>
             </div>
           </div>
         </div>
@@ -89,7 +84,13 @@ export default {
 
     methods: {
       handleSelect() {
-        this.$emit('handleSelect',  { header:this.selected, param: this.selected.toLowerCase().replace(' ', '-') });
+        this.selected === "All Categories" 
+          ? 
+            this.$router.push('/apps/home') 
+          
+          :
+            this.$emit('handleSelect',  { header:this.selected, param: this.selected.toLowerCase().replace(' ', '-') });
+
         this.query = '';
       },
       handleEnter(){

@@ -90,9 +90,7 @@
                       :review="review">
                     </Review>
                   </div>
-                  <div 
-                    v-else
-                  > 
+                  <div v-else> 
                     {{ translations.reviews.na }}
                   </div>
                   <pagination :paginationData="paginationData" @handle-update="handlePagination"></pagination>
@@ -124,22 +122,20 @@
               </div>
             </div>
           <div class="card-footer">
-            <div v-if="isInstalled">
-              <a :href="this.path + this.$route.path + '/uninstall'" class="btn btn-block btn-danger">
+            <div v-if="!installation.show">
+              <a v-show="isInstalled" :href="this.path + this.$route.path + '/uninstall'" class="btn btn-block btn-danger">
                   {{translations.actions.uninstall}}
               </a>
-              <a v-if="this.installed[this.appData.slug]" :href="this.path + this.$route.path + '/disable'" class="btn btn-block btn-warning">
+              <a v-show="this.installed[this.appData.slug]" :href="this.path + this.$route.path + '/disable'" class="btn btn-block btn-warning">
                  {{translations.actions.disable}}
               </a>
-              <a v-else :href="this.path + this.$route.path + '/enable'" class="btn btn-success btn-block">
+              <a v-show="!this.installed[this.appData.slug] && isInstalled" :href="this.path + this.$route.path + '/enable'" class="btn btn-success btn-block">
                 {{translations.actions.enable}}
               </a>
-            </div>
-            <div v-else>
-              <a v-show="appData.price" :href="appData.action_url" target="#" class="btn btn-success btn-block">
+               <a v-show="appData.price && !isInstalled" :href="appData.action_url" target="#" class="btn btn-success btn-block">
                 {{translations.actions.buy_now}}
               </a>
-              <button v-show="!appData.price" @click="onInstall" target="" class="btn btn-success btn-block">
+              <button v-show="!appData.price && !isInstalled" @click="onInstall" target="" class="btn btn-success btn-block">
                 {{translations.actions.install}}
               </button>
             </div>
@@ -227,6 +223,7 @@ export default {
   data() {
     return {
       showFaq: false,
+      actionsCompleted: false,
       appData: {},
       reviewPages: [],
       pageReviews: {},
@@ -257,7 +254,6 @@ export default {
     this.paginationData = { current_page, last_page, from, to, per_page, total };
     this.discountPrice = this.appData.special_price;
     this.pageReviews = data;
-
     this.isLoading=false;
   },
 
@@ -292,6 +288,7 @@ export default {
     },
     
     onInstall() {
+      this.actionsCompleted = false;
       this.installation.alias = this.appData.alias;
       this.installation.show = true;
       this.installation.total = 0;
@@ -326,10 +323,6 @@ export default {
       })
     },
 
-    async onUninstall() {
-      const result  = await window.axios.get(this.path + this.$route.fullPath);
-    },
-
     async next() {
         let data = this.installation.steps.shift();
         
@@ -346,33 +339,31 @@ export default {
 
           step_promise.then(response => {
             if (response.data.error) {
-                        this.installation.status = 'exception';
-                        this.installation.html = '<div class="text-danger"><i class="fa fa-times update-error"></i> ' + response.data.message + '</div>';
-                    }
-
-                    if (response.data.success) {
-                        this.installation.status = 'success';
-                        this.appData.install = true;
-                    }
-
-                    if (response.data.data.path) {
-                        this.installation.path = response.data.data.path;
-                    }
-
-                    if (!response.data.error && !response.data.redirect) {
-                        setTimeout(function() {
-                            this.next();
-                        }.bind(this), 800);
-                    }
-
-                    if (response.data.redirect) {
-                        window.location = response.data.redirect;
-                    }
-                })
-                .catch(error => {
-                });
+               this.installation.status = 'exception';
+               this.installation.html = '<div class="text-danger"><i class="fa fa-times update-error"></i> ' + response.data.message + '</div>';
             }
-        },
+
+            if (response.data.success) {
+                this.installation.status = 'success';
+                this.appData.install = true;
+            }
+
+            if (response.data.data.path) {
+                 this.installation.path = response.data.data.path;
+            }
+
+            if (!response.data.error && !response.data.redirect) {
+                 setTimeout(function() {
+                    this.next();
+                        }.bind(this), 800);
+            }
+
+            if (response.data.redirect) {
+                window.location = response.data.redirect;
+            }
+          }) .catch(error => {});
+        }
+    },
   },
 
   computed: {
@@ -384,9 +375,21 @@ export default {
       return path;
     },
 
-     isInstalled() {
+    isInstalled() {
       return Object.keys(this.installed).includes(this.appData.slug);
     },
+  },
+
+  watch: {
+    installed: {
+      deep: true,
+      immediate: true,
+
+        handler() {
+          console.log(this.installed)
+          console.log('The list of colours has changed!') 
+        }
+      }
   }
 };
 </script>
