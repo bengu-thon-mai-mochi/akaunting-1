@@ -1,7 +1,5 @@
 <template>
-  <keep-alive>
-    <card-views-layout :translations="translations" :data="modules.modules.data" :isInstalled="isInstalled" :title="modules.title"></card-views-layout>
-  </keep-alive>
+    <card-views-layout :translations="translations" :data="modules.modules" :isInstalled="isInstalled" :title="modules.title"></card-views-layout>
 </template>
 
 <script>
@@ -12,7 +10,8 @@ export default {
 
   props: {
     modules: {
-      type: Object | Array
+      type: Object | Array ,
+      default:[],
     },
     isInstalled: {
       type: Array,

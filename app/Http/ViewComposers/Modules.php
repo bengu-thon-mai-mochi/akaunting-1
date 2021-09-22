@@ -62,7 +62,8 @@ class Modules
                     'back'   => trans('modules.back'),
                     'installation'   => trans('modules.tab.installation'),
                     'pre_sale'  => trans('modules.badge.pre_sale'),
-                    'search'   => trans('general.search'),
+                    'search' => trans('general.search'),
+                    'na' => trans('general.na'),
                 ],
                 'installation' => [
                     'header'  =>  trans('modules.installation.header'),

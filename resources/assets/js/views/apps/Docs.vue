@@ -50,7 +50,7 @@ export default {
 </script>
 
 <style scoped>
-.documentation-template {
-    max-width: 100%;
+.card-body img{
+    width: 100% !important;
 }
 </style>

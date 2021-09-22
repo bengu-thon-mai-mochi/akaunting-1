@@ -105,7 +105,7 @@ export default {
 
     async getData() {
       const result = await window.axios.get(this.path + this.$route.fullPath)
-      const data = await result.data.data;   
+      const data = await result.data.data; 
       this.pageData = data;
     },
 
@@ -153,7 +153,6 @@ export default {
     },
 
     onFail(error) {
-        console.log(error)
          this.errors = error.response.data.errors;
 
          this.isLoading = false;

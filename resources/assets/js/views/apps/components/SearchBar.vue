@@ -90,14 +90,13 @@ export default {
     methods: {
       handleSelect() {
         this.$emit('handleSelect',  { header:this.selected, param: this.selected.toLowerCase().replace(' ', '-') });
-        this.selected = '';
         this.query = '';
       },
       handleEnter(){
         this.$emit('handleSearch',this.query);
         this.selected = '';
-        this.query = '';
       }
     }
 }
 </script>
+

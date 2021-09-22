@@ -4,15 +4,9 @@
       <spinner class="text-center py-8"></spinner>
   </div>  
   <div v-else>
-    <akaunting-modal v-show="showFaq" @cancel="() => showFaq = false"> 
-      <template #modal-header>
-        <div>Some heading</div>
-      </template>
-      <template #modal-body>
+    <akaunting-modal @close="() => showFaq = false" :show="showFaq" @cancel="() => showFaq = false" > 
+      <template #modal-content>
         <div v-html="appData.purchase_faq"></div>
-      </template>
-      <template #card-footer>
-        <div hidden></div>
       </template>
     </akaunting-modal>
     <akaunting-modal :show="installation.show" @cancel="() => installation.show = false"> 
@@ -117,7 +111,7 @@
             <div class="card-body">
               <div class="text-center">
                 <strong v-if="!discountPrice">
-                  <div class="text-center mt-3">
+                  <div class="text-xl">
                     {{ appData.price === 0 ? translations.general.free : appData.price }}
                   </div>
                 </strong>
@@ -142,14 +136,15 @@
               </a>
             </div>
             <div v-else>
-              <a v-show="appData.price" :href="appData.action_url" class="btn btn-success btn-block">
+              <a v-show="appData.price" :href="appData.action_url" target="#" class="btn btn-success btn-block">
                 {{translations.actions.buy_now}}
               </a>
-              <button v-show="!appData.price" @click="onInstall" class="btn btn-success btn-block">
+              <button v-show="!appData.price" @click="onInstall" target="" class="btn btn-success btn-block">
                 {{translations.actions.install}}
               </button>
             </div>
-            <div class="text-center mt-3" @click="onShowFaq" v-html="appData.purchase_desc">
+            <div class="text-center mt-3">
+              A year of updates &amp; support.<br>A lifetime of usage. <a @click="onShowFaq" href="javascript:;">Learn more</a>
             </div>
           </div>
           </div>
@@ -184,8 +179,10 @@
               </tr>
               <tr class="row">
                 <th class="col-5">{{ translations.detail.documentation }}</th>
-                <td class="col-7 text-right">
+                <td v-if="appData.documentation" class="col-7 text-right">
                   <router-link :to="`/apps/docs/${appData.alias}`">{{ translations.detail.view }}</router-link>
+                </td>
+                <td v-else class="col-7 text-right">{{ translations.general.na }}</td>
                 </td>
               </tr>
             </tbody>

@@ -4,10 +4,10 @@
           <div class="row">
             <div class="col-md-12">
               <p class="text-center">
-               {{ translations.become_developer }}
+               {{ translations.noApps.no_apps }}
               </p>
               <p class="text-center">
-                <small v-html="translations.become_developer"></small>
+                <small v-html="translations.noApps.become_developer"></small>
               </p>
             </div>
           </div>

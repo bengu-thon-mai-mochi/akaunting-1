@@ -25,21 +25,8 @@
               <div class="card-footer py-2">
 
                 <div class="float-left ml--3 mt--1">
-                  <i 
-                    v-show="rating"
-                    class="fa fa-star text-xs text-yellow"
-                    v-for="(n, index) in rating"
-                    :key="index"
-                    >
-                 </i>
-                  <i 
-                    v-show="!rating"
-                    class="far fa-star text-xs"
-                    v-for="(n, index) in 5"
-                    :key="uid[index]"
-                    >
-                 </i>
-                    <small>( {{ reviews }} )</small>
+                  <rating :rating="rating"></rating>
+                  <small>( {{ reviews }} )</small>
                 </div> 
                 <div class="float-right mr--3">
                   <small>
@@ -53,8 +40,11 @@
 </template>
 
 <script>
+import Rating from './Rating.vue'
 export default {
     name: 'AppCard',
+
+    components: { Rating },
 
     props: { 
         appLink: {
