@@ -21,6 +21,7 @@ class Modules
     {       
         $translations = $this->getTranslations();
 
+
         if (setting('apps.api_key')) {
             $categories = Cache::remember('modules.categories.' . language()->getShortCode(), Date::now()->addHour(6), function () {
                 return collect($this->getCategoriesOfModules())->pluck('name', 'slug')
@@ -35,6 +36,11 @@ class Modules
             'translations' => $translations,
             'categories' => $categories,
         ]);
+    }
+
+    public function getNewVersion()
+    {
+        return ($this->argument('new') == 'latest') ? Versions::latest($this->alias) : $this->argument('new');
     }
 
     protected function getTranslations()
@@ -65,7 +71,14 @@ class Modules
                     'search' => trans('general.search'),
                     'na' => trans('general.na'),
                 ],
-                'installation' => [
+                
+                'footer' => [
+                    'powered' => trans('footer.powered'),
+                    'link' => trans('footer.link'),
+                    'software' => trans('footer.software'),
+                    'version' => trans('footer.version'),
+                ],
+                 'installation' => [
                     'header'  =>  trans('modules.installation.header'),
                 ],
                 'noApps' => [

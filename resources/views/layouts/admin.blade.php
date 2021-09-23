@@ -28,8 +28,9 @@
 
                 </div>
 
-            </div>
+                @include('partials.admin.footer')
 
+            </div>
         </div>
 
         @stack('body_end')

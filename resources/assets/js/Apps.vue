@@ -32,7 +32,6 @@
           ></router-view>
         </div>
       <notifications></notifications>
-     <Footer></Footer>
   </div>
   </keep-alive>
 </template>
@@ -41,7 +40,6 @@
 
 import Header from './views/apps/components/Header.vue';
 import SearchBar from './views/apps/components/SearchBar.vue';
-import Footer from './views/apps/components/Footer.vue';
 import Spinner from './views/apps/components/Spinner.vue';
 import Global from './mixins/global';
 import NoApp from './views/apps/components/NoApp.vue';
@@ -50,7 +48,6 @@ export default {
   name: "Apps",
 
   components: { 
-    Footer,
     Header, 
     SearchBar,
     Spinner,
