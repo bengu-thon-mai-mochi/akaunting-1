@@ -4,45 +4,25 @@
         <span class="table-text d-lg-block">
             {{paginationData.from}}/{{ paginationData.to }} of {{ paginationData.total}} records.
         </span>
-   </div>
+    </div>
     <div class="col-md-6">
-    <ul v-if="paginationData.last_page" class="pagination float-right">
-        <li 
-            :class="`page-item  ${currentPage === 1 ? isDisabled : ''}` "
-        >
-            <button 
-                type="button" 
-                class="page-link"
-                @click="navigateToSelectedPage(currentPage - 1)"
-            >
-                <
-            </button>
-        </li>
-        <li 
-            v-for="(value, index) in paginationData.last_page"
-            :key="index"
-            :class="`page-item ${currentPage === value ? isSelected : ''}`"
-        >
-            <button 
-                type="button" 
-                class="page-link"
-                @click="navigateToSelectedPage(value)"
-            >
-                {{value}}
-            </button>
-        </li>
-        <li 
-            :class="`page-item ${currentPage === paginationData.last_page ? isDisabled : ''}` "
-        >
-            <button 
-                type="button" 
-                class="page-link"
-                @click="navigateToSelectedPage(currentPage + 1)"
-            >
-                >
-            </button>
-        </li>
-    </ul>
+        <ul v-if="paginationData.last_page" class="pagination float-right">
+            <li :class="`page-item  ${currentPage === 1 ? isDisabled : ''}` ">
+                <button type="button" class="page-link" @click="navigateToSelectedPage(currentPage - 1)"> 
+                    < 
+                </button>
+            </li>
+            <li v-for="(value, index) in paginationData.last_page" :key="index" :class="`page-item ${currentPage === value ? isSelected : ''}`">
+                <button type="button" class="page-link" @click="navigateToSelectedPage(value)">
+                    {{value}}
+                </button>
+            </li>
+            <li :class="`page-item ${currentPage === paginationData.last_page ? isDisabled : ''}` ">
+                <button type="button" class="page-link" @click="navigateToSelectedPage(currentPage + 1)">
+                    >
+                </button>
+            </li>
+        </ul>
      </div>
    </div>
 </template> 

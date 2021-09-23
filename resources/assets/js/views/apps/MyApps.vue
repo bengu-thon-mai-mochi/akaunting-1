@@ -38,11 +38,7 @@ export default {
   },
 
   async mounted() {
-      const baseURL = new URL(url).protocol + '//' + window.location.host;
-      const companyPath = url.replace(baseURL, '' );
-      const path = baseURL + companyPath;
-      
-      await  window.axios.get(path + '/apps/my').then(res => {
+      await  window.axios.get(url + '/apps/my').then(res => {
         const { purchased, installed, modules } = res.data.data;
 
         installed === null ? 

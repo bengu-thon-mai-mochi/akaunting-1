@@ -32,20 +32,21 @@ const router = new VueRouter({
 
     routes: [
         {
-            path: '/',
-            component: AppStoreSPALayout,
+            path: '/:',
+            component: Apps,
             props: {
-                translations: window.module_translations,
-                categories: window.app_categories,
+                translations: module_translations,
+                categories: app_categories,
             },
         },
         {
-            path: '/apps/',
+            path: '/apps',
             component: Apps,
             props: {
-                translations: window.module_translations,
-                categories: window.app_categories,
+                translations: module_translations,
+                categories:  app_categories,
             },
+            
             children: [
                 {
                     path: 'home',
@@ -126,6 +127,11 @@ const router = new VueRouter({
                 },
             ],
         },
+
+    { 
+            path: '/:', 
+            redirect: '/apps/home',
+    },
     ],
 
     linkActiveClass: 'active',
@@ -144,7 +150,9 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    next()
+    const apiKey = true;
+    if (to.name === 'home' && !apiKey) next({ name: 'apiKey' })
+    else next()
 })
 
 new Vue({

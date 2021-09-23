@@ -6,7 +6,7 @@
       <div v-else class="row">
         <div v-for="(module, index) in data" class="col-md-3">
           <AppCard 
-            :appLink="module['app_releases'].data[0] ? module['app_releases'].data[0]['item_slug'] : '_target'" 
+            :appLink="module['slug']" 
             :cardHeader="module.name" 
             :imgSource="Object.values(module.files).flat()[0]['path_string']"
             :rating="module.vote"

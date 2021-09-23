@@ -14,22 +14,23 @@
       ></SearchBar>
         <router-view 
             v-show="!isLoading" 
-            :modules="pageData"
+            :modules="pageData ? pageData : {}"
             :isInstalled="isInstalled"
             :installed= "installed"
             :translations="this.$attrs.translations"
             @on-submit="handleSubmit"
           ></router-view>
         <div>
-            <spinner class="text-center " v-show="isLoading"></spinner>
+            <spinner class="text-center py-6" v-show="isLoading"></spinner>
         </div>
+        <div v-if="!isLoading && last_page" >
           <router-view 
             name="paginationHelper"
-            v-show="!isLoading" 
             :last_page="last_page" 
             :translations="this.$attrs.translations"
             @handlePagination="handlePagination"
           ></router-view>
+        </div>
       <notifications></notifications>
      <Footer></Footer>
   </div>
@@ -78,21 +79,28 @@ export default {
   },
 
   async mounted() {
-    await window.axios.get(this.path + '/apps/my').then(res => {
+    await window.axios.get(url + '/apps/my').then(res => {
         this.installed = res.data.data.installed;
         this.isInstalled = Object.keys(res.data.data.installed);
     }); 
     await this.getData();  
-    this.pageData.installed = this.pageData.slug
+    this.setLastPage();
+    this.pageData ? this.pageData.installed = this.pageData.slug : {};
     this.isLoading = false;
   },
 
   methods: {
     setLastPage() {
-      this.pageData.modules.last_page 
-        ? this.last_page = this.pageData.modules.last_page 
-        : this.last_page = 0;
-       this.currentPage = this.pageData.modules.current_page;
+      if(this.pageData){
+        this.pageData.modules 
+          ? (
+            this.last_page = this.pageData.modules.last_page, 
+            this.current_page = this.pageData.modules.current_page
+            )
+          : this.last_page = 0;
+      }
+
+      this.isLoading = false;
     },
 
     filterByCategory(category) { 
@@ -112,12 +120,14 @@ export default {
     },
 
     async getData() {
-      const result = await window.axios.get(this.path + this.$route.fullPath)
+      const result = await window.axios.get(url + this.$route.fullPath)
       const data = await result.data.data; 
       this.pageData = data;
     },
 
-    handlePagination(x){
+    handlePagination(){
+      this.isLoading = true;
+ 
       const pageNumber =  `${this.currentPage++}`
 
       this.$router.push(`?page=${pageNumber}`);
@@ -130,11 +140,12 @@ export default {
 
       window.axios({
                 method: "POST",
-                url: this.path + "/apps/api-key",
+                url: url + "/apps/api-key",
                 data: data,
                 headers: {
-                    "X-Requested-With": "XMLHttpRequest",
-                    "Content-Type": "multipart/form-data",
+                  "X-CSRF-TOKEN": window.Laravel.csrfToken,
+                  "X-Requested-With": "XMLHttpRequest",
+                  "Content-Type": "multipart/form-data",
                 },
             })
             .then((response) => {
@@ -170,25 +181,18 @@ export default {
     showButtons() {
       return this.$route.name !== 'apiKey'
     },
-    path() {
-      const baseURL = new URL(url).protocol + '//' + window.location.host;
-      const companyPath = url.replace(baseURL, '' );
-      const path = baseURL + companyPath;
-
-      return path;
-    },
     translations() {
       return this.$attrs.module_translations
     },
      categories() {
       return this.$attrs.app_categories
     },
-
   },
 
   watch: {
     $route() {
-      this.getData().then(() =>  this.setLastPage())
+      this.isLoading = true;
+      this.getData().then(() =>  this.setLastPage());
     }
   }
 };

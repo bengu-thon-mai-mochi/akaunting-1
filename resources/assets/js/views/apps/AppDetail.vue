@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div v-if="isLoading">
+  <div v-if="loading">
       <spinner class="text-center py-8"></spinner>
   </div>  
   <div v-else>
@@ -29,7 +29,7 @@
         <div hidden></div>
       </template>
     </akaunting-modal>
-    <div v-show="!isloading" class="row">
+    <div v-show="!loading" class="row">
       <div class="col-md-8">
         <div class="row">
           <div class="col-xs-6 col-sm-6">
@@ -49,7 +49,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="#review" data-toggle="tab" aria-selected="false" class="nav-link mb-sm-2 mb-md-0">    {{ this.$attrs.translations.detail.reviews }} ( {{ appData.total_review }} ) </a>
+              <a href="#review" data-toggle="tab" aria-selected="false" class="nav-link mb-sm-2 mb-md-0"> {{ this.$attrs.translations.detail.reviews }} ( {{ appData.total_review }} ) </a>
             </li>
           </ul>
         </div>
@@ -123,7 +123,7 @@
             </div>
           <div class="card-footer">
             <div v-if="appState">
-              <a :href="this.path + this.$route.path + '/uninstall'" class="btn btn-block btn-danger">
+              <a :href="url + this.$route.path + '/uninstall'" class="btn btn-block btn-danger">
                   {{translations.actions.uninstall}}
               </a>
               <a v-show="installed[appData.slug]" :href="this.path + this.$route.path + '/disable'" class="btn btn-block btn-warning">
@@ -152,7 +152,7 @@
           <table class="table">
             <tbody>
               <tr class="row">
-                <th class="col-5">{{   translations.detail.developers }}</th>
+                <th class="col-5">{{ translations.detail.developers }}</th>
                 <td class="col-7 text-right">
                   <router-link :to="'vendors/' + appData.vendor.slug">
                     {{ appData.vendor.company }}
@@ -225,7 +225,7 @@ export default {
 
   data() {
     return {
-      isLoading: true,
+      loading: true,
       showFaq: false,
       actionsCompleted: true,
       appData: {},
@@ -257,7 +257,7 @@ export default {
     this.paginationData = { current_page, last_page, from, to, per_page, total };
     this.discountPrice = this.appData.special_price;
     this.pageReviews = data;
-    this.isLoading=false;
+    this.loading=false;
   },
 
   methods: {
@@ -267,14 +267,14 @@ export default {
 
     async getPageData(param){
       this.actionsCompleted = false;
-      const result = await window.axios.get( this.path + '/apps/' + param);
+      const result = await window.axios.get( url + '/apps/' + param);
       const data = await result.data.data;   
 
       return data;
     },
 
     async getReviews(page){
-      const result = await window.axios.post(this.path + '/apps/' + this.appData.slug  + '/reviews', {
+      const result = await window.axios.post(url + '/apps/' + this.appData.slug  + '/reviews', {
               page: page
               }
             )
@@ -300,7 +300,7 @@ export default {
       this.installation.version = this.appData.version;
 
       //initializeSteps
-      this.updateStepsRecursively(this.path + '/apps/steps');
+      this.updateStepsRecursively(url + '/apps/steps');
     },
 
     async updateStepsRecursively(path) {
@@ -371,14 +371,6 @@ export default {
   },
 
   computed: {
-    path() {
-      const baseURL = new URL(url).protocol + '//' + window.location.host;
-      const companyPath = url.replace(baseURL, '' );
-      const path = baseURL + companyPath;
-
-      return path;
-    },
-
     appState() {
       return this.isInstalled.includes(this.appData.slug);
     },

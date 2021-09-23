@@ -25,8 +25,10 @@
               <div class="card-footer py-2">
 
                 <div class="float-left ml--3 mt--1">
-                  <rating :rating="rating"></rating>
-                  <small>( {{ reviews }} )</small>
+                  <span>
+                    <rating :rating="rating"></rating>
+                    <small>( {{ reviews }} )</small>
+                  </span>
                 </div> 
                 <div class="float-right mr--3">
                   <small>

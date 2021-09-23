@@ -34,6 +34,9 @@
         var url = '{{ url("/" . company_id()) }}';
         var app_home = '{{ route("apps.home.index") }}';
         var app_url = '{{ config("app.url") }}';
+        var app_categories = {!! json_encode($categories) !!};
+        
+        var module_translations = {!! json_encode($translations) !!};
         var aka_currency = {!! !empty($currency) ? $currency : 'false' !!};
     //--></script>
 

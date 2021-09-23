@@ -87,7 +87,7 @@ export default {
 
       for (let [key, val] of formData.entries()) {
         Object.assign(data_name, {
-          "_api_key": val,
+          "api_key": val,
           ["_token"]: window.Laravel.csrfToken,
         });
       } 
@@ -95,16 +95,5 @@ export default {
       this.$emit('on-submit', formData)
     }
   },
-
-  computed:  {
-    path() {
-      const baseURL = new URL(url).protocol + '//' + window.location.host;
-      const companyPath = url.replace(baseURL, '' );
-      const path = baseURL + companyPath;
-
-      return path;
-    }
-  },
-
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-   <div class="card" v-show="pageData">
+   <div class="card card-docs" v-show="pageData">
        <div class="card-body" v-html="pageData.body"></div>
        <div class="card-footer">
            <div class="row">
@@ -8,7 +8,7 @@
                         :to="`/apps/${title}`" 
                         class="btn btn-white"
                     >
-                    Back
+                    {{ translations.general.back }}
                     </router-link>
                 </div>
             </div>
@@ -19,6 +19,12 @@
 <script>
 export default {
   name: "Docs",
+
+  props: {
+    translations: {
+      type: Object | Array,
+    }
+  },
 
   data() {
     return {
@@ -49,8 +55,8 @@ export default {
 };
 </script>
 
-<style scoped>
-.card-body img{
+<style>
+.card-docs img {
     width: 100% !important;
 }
 </style>

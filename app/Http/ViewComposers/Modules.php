@@ -59,7 +59,7 @@ class Modules
                     'top_free' =>  trans('modules.top_free'),
                     'installed' => trans('modules.badge.installed'),
                     'recommended_apps' => trans('modules.recommended_apps'),
-                    'back'   => trans('modules.back'),
+                    'back' => trans('modules.back'),
                     'installation'   => trans('modules.tab.installation'),
                     'pre_sale'  => trans('modules.badge.pre_sale'),
                     'search' => trans('general.search'),
