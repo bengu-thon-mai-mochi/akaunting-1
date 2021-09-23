@@ -193,7 +193,6 @@
 </template>
 
 <script>
-import NavButtons from './components/NavButtons.vue';
 import Rating from './components/Rating.vue';
 import AkauntingModal from '../../components/AkauntingModal.vue';
 import Pagination from './components/Pagination.vue';
@@ -206,7 +205,6 @@ export default {
   components: { 
     [Progress.name]: Progress,
     Rating, 
-    NavButtons,
     AkauntingModal,
     Review,
     Pagination,
