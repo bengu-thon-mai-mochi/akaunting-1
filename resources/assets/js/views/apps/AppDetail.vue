@@ -225,7 +225,7 @@ export default {
 
   data() {
     return {
-      isLoading: false,
+      isLoading: true,
       showFaq: false,
       actionsCompleted: true,
       appData: {},

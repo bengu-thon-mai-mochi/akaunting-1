@@ -10,8 +10,8 @@
                     </div>
                     <div v-if="showButtons" class="col-sm-12 col-sm-4 col-md-5">
                         <div class="text-right">
-                            <router-link to="api-key/create" class="btn btn-white btn-sm"> {{ translations.header.api_key || 'title'}} </router-link>
-                            <router-link to="my" class="btn btn-white btn-sm"> {{ translations.header.my_apps || 'title'}} </router-link>
+                            <router-link to="/apps/api-key/create" class="btn btn-white btn-sm"> {{ translations.header.api_key || 'title'}} </router-link>
+                            <router-link to="/apps/my" class="btn btn-white btn-sm"> {{ translations.header.my_apps || 'title'}} </router-link>
                         </div>
                     </div>
                 </div>

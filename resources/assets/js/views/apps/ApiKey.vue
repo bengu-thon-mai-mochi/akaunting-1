@@ -87,17 +87,11 @@ export default {
 
       for (let [key, val] of formData.entries()) {
         Object.assign(data_name, {
-          [key]: val,
-        });
-      }
-    /*
-      Object.assign(data_name, {
-          ["api_key"]: api_key,
+          "_api_key": val,
           ["_token"]: window.Laravel.csrfToken,
-      });
-*/
-     // formData.append(data_name["api_key"], data_name["_token"]);
-
+        });
+      } 
+      
       this.$emit('on-submit', formData)
     }
   },

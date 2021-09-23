@@ -80,9 +80,5 @@ export default {
           type: Object
         },
     },
-
-    computed: {
-      uid: () => [6,7,8,9,10]
-    }
 }
 </script>

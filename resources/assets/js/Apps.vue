@@ -62,7 +62,7 @@ export default {
 
   data() {
     return {
-      isLoading: true,
+      isLoading: false,
       installed: [],
       isInstalled: [],
       isDisabled: false,
@@ -71,6 +71,10 @@ export default {
       last_page: 0,
       pageData: {},
     };
+  },
+
+  created() {
+    this.isLoading = true;
   },
 
   async mounted() {
@@ -129,7 +133,6 @@ export default {
                 url: this.path + "/apps/api-key",
                 data: data,
                 headers: {
-                    "X-CSRF-TOKEN": window.Laravel.csrfToken,
                     "X-Requested-With": "XMLHttpRequest",
                     "Content-Type": "multipart/form-data",
                 },
