@@ -10,7 +10,7 @@ export default {
 
   props: {
     modules: {
-      type: Object | Array
+      type: Object | Array,
     },
     isInstalled: {
       type: Array,

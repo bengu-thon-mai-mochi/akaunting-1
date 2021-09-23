@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="row" v-if="last_page > 0">
     <div class="col-md-6 text-left">
       <router-link 
         v-if="this.$route.query.page > 1"

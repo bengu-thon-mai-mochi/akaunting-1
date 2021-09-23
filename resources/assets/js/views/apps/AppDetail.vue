@@ -4,7 +4,7 @@
       <spinner class="text-center py-8"></spinner>
   </div>  
   <div v-else>
-    <akaunting-modal @close="() => showFaq = false" :show="showFaq" @cancel="() => showFaq = false" > 
+    <akaunting-modal :show="showFaq" > 
       <template #modal-content>
         <div v-html="appData.purchase_faq"></div>
       </template>
@@ -122,20 +122,22 @@
               </div>
             </div>
           <div class="card-footer">
-            <div v-if="!installation.show">
-              <a v-show="isInstalled" :href="this.path + this.$route.path + '/uninstall'" class="btn btn-block btn-danger">
+            <div v-if="appState">
+              <a :href="this.path + this.$route.path + '/uninstall'" class="btn btn-block btn-danger">
                   {{translations.actions.uninstall}}
               </a>
-              <a v-show="this.installed[this.appData.slug]" :href="this.path + this.$route.path + '/disable'" class="btn btn-block btn-warning">
+              <a v-show="installed[appData.slug]" :href="this.path + this.$route.path + '/disable'" class="btn btn-block btn-warning">
                  {{translations.actions.disable}}
               </a>
-              <a v-show="!this.installed[this.appData.slug] && isInstalled" :href="this.path + this.$route.path + '/enable'" class="btn btn-success btn-block">
+              <a v-show="!installed[appData.slug]" :href="this.path + this.$route.path + '/enable'" class="btn btn-success btn-block">
                 {{translations.actions.enable}}
               </a>
-               <a v-show="appData.price && !isInstalled" :href="appData.action_url" target="#" class="btn btn-success btn-block">
+            </div>
+            <div v-if="!appState">
+               <a v-show="appData.price" :href="appData.action_url" target="#" class="btn btn-success btn-block">
                 {{translations.actions.buy_now}}
               </a>
-              <button v-show="!appData.price && !isInstalled" @click="onInstall" target="" class="btn btn-success btn-block">
+              <button v-show="!appData.price" @click="onInstall" target="" class="btn btn-success btn-block">
                 {{translations.actions.install}}
               </button>
             </div>
@@ -218,12 +220,16 @@ export default {
     installed: {
       type: Object | Array
     },
+    isInstalled: {
+      type: Object | Array
+    },
   },
 
   data() {
     return {
+      isLoading: false,
       showFaq: false,
-      actionsCompleted: false,
+      actionsCompleted: true,
       appData: {},
       reviewPages: [],
       pageReviews: {},
@@ -240,7 +246,6 @@ export default {
         status: 'success',
         html: ''
       },
-      isLoading: true,
       translations: {},
     };
   },
@@ -263,6 +268,7 @@ export default {
     },
 
     async getPageData(param){
+      this.actionsCompleted = false;
       const result = await window.axios.get( this.path + '/apps/' + param);
       const data = await result.data.data;   
 
@@ -375,21 +381,17 @@ export default {
       return path;
     },
 
-    isInstalled() {
-      return Object.keys(this.installed).includes(this.appData.slug);
+    appState() {
+      return this.isInstalled.includes(this.appData.slug);
     },
   },
-
+  
   watch: {
-    installed: {
-      deep: true,
-      immediate: true,
-
-        handler() {
-          console.log(this.installed)
-          console.log('The list of colours has changed!') 
-        }
-      }
+    isInstalled() {
+      setTimeout(() => {
+        this.actionsCompleted = true;
+      }, 1000);
+    }
   }
 };
 </script>

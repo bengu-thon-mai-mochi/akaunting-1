@@ -43,6 +43,7 @@ import SearchBar from './views/apps/components/SearchBar.vue';
 import Footer from './views/apps/components/Footer.vue';
 import Spinner from './views/apps/components/Spinner.vue';
 import Global from './mixins/global';
+import NoApp from './views/apps/components/NoApp.vue';
 
 export default {
   name: "Apps",
@@ -51,7 +52,8 @@ export default {
     Footer,
     Header, 
     SearchBar,
-    Spinner
+    Spinner,
+    NoApp
   },
 
   mixins: [  
@@ -72,11 +74,12 @@ export default {
   },
 
   async mounted() {
-    window.axios.get(this.path + '/apps/my').then(res => {
+    await window.axios.get(this.path + '/apps/my').then(res => {
         this.installed = res.data.data.installed;
         this.isInstalled = Object.keys(res.data.data.installed);
     }); 
-    this.getData();  
+    await this.getData();  
+    this.pageData.installed = this.pageData.slug
     this.isLoading = false;
   },
 

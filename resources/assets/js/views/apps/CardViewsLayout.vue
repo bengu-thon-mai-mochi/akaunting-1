@@ -2,7 +2,7 @@
   <div> 
     <div>
       <h2> {{ title }} </h2>
-      <NoApp v-if="!data" :translations="translations"></NoApp>
+      <NoApp v-if="!data || data.length === 0" :translations="translations"></NoApp>
       <div v-else class="row">
         <div v-for="(module, index) in data" class="col-md-3">
           <AppCard 
