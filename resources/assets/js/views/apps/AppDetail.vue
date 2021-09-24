@@ -4,9 +4,9 @@
       <spinner class="text-center py-8"></spinner>
   </div>  
   <div v-else>
-    <akaunting-modal :show="showFaq" > 
+    <akaunting-modal :show="faq"> 
       <template #modal-content>
-        <div v-html="appData.purchase_faq"></div>
+        <div @click="closeModal($event)" v-html="appData.purchase_faq"></div>
       </template>
     </akaunting-modal>
     <akaunting-modal :show="installation.show" @cancel="() => installation.show = false"> 
@@ -235,7 +235,7 @@ export default {
   data() {
     return {
       loading: true,
-      showFaq: false,
+      faq: false,
       actionsCompleted: true,
       appData: {},
       reviewPages: [],
@@ -271,7 +271,7 @@ export default {
 
   methods: {
     onShowFaq() {
-      this.showFaq = true;
+      this.faq = true;
     },
 
     async getPageData(param){
@@ -298,6 +298,12 @@ export default {
       const { from, to, data } = result;
       this.pageReviews = data;
       this.paginationData = { ...this.paginationData, from, to };
+    },
+
+    closeModal($event){ 
+      $event.target.type === 'button' 
+        ? this.faq = false
+        : this.faq = true;
     },
     
     onInstall() {

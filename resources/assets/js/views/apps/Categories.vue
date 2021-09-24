@@ -1,5 +1,5 @@
 <template>
-    <card-views-layout :translations="translations" :data="modules.modules.data" :isInstalled="isInstalled" :title="modules.title"></card-views-layout>
+    <card-views-layout :translations="translations" :data="modules.modules ? modules.modules.data : []" :isInstalled="isInstalled" :title="modules.title"></card-views-layout>
 </template>
 
 <script>

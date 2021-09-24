@@ -1,6 +1,6 @@
 <template>
   <keep-alive>
-    <card-views-layout :translations="translations" :data="modules.modules.data" :title="modules.title" :isInstalled="isInstalled"></card-views-layout>
+    <card-views-layout :translations="translations" :data="modules.modules ? modules.modules.data : []" :title="modules.title" :isInstalled="isInstalled"></card-views-layout>
   </keep-alive>
 </template>
 
