@@ -19,6 +19,7 @@
             :installed= "installed"
             :translations="this.$attrs.translations"
             @on-submit="handleSubmit"
+            :url="this.$attrs.url"
           ></router-view>
         <div>
             <spinner class="text-center py-6" v-show="isLoading"></spinner>
@@ -177,12 +178,6 @@ export default {
   computed: {
     showButtons() {
       return this.$route.name !== 'apiKey'
-    },
-    translations() {
-      return this.$attrs.module_translations
-    },
-     categories() {
-      return this.$attrs.app_categories
     },
   },
 

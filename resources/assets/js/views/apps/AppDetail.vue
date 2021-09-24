@@ -95,7 +95,13 @@
                   </div>
                   <pagination :paginationData="paginationData" @handle-update="handlePagination"></pagination>
                 <div class="card-footer mx--4 mb--4">
-                  <div class="row"><div class="col-md-12 text-right"></div></div>
+                    <div class="row">
+                      <div v-if="appState" class="col-md-12 text-right">
+                        <a :href="`https://akaunting.com/apps/${appData.slug}#tabs-review`" target="_blank" class="btn btn-success">
+                          {{ translations.reviews.add }}
+                        </a>
+                      </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -126,10 +132,10 @@
               <a :href="url + this.$route.path + '/uninstall'" class="btn btn-block btn-danger">
                   {{translations.actions.uninstall}}
               </a>
-              <a v-show="installed[appData.slug]" :href="this.path + this.$route.path + '/disable'" class="btn btn-block btn-warning">
+              <a v-show="installed[appData.slug]" :href="url + this.$route.path + '/disable'" class="btn btn-block btn-warning">
                  {{translations.actions.disable}}
               </a>
-              <a v-show="!installed[appData.slug]" :href="this.path + this.$route.path + '/enable'" class="btn btn-success btn-block">
+              <a v-show="!installed[appData.slug]" :href="url+ this.$route.path + '/enable'" class="btn btn-success btn-block">
                 {{translations.actions.enable}}
               </a>
             </div>
@@ -217,6 +223,9 @@ export default {
   props: {
     installed: {
       type: Object | Array
+    },
+    url: {
+      type: String
     },
     isInstalled: {
       type: Object | Array

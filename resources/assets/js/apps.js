@@ -44,7 +44,8 @@ const router = new VueRouter({
             component: Apps,
             props: {
                 translations: module_translations,
-                categories:  app_categories,
+                categories: app_categories,
+                url: url
             },
             
             children: [
