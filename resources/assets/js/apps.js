@@ -33,11 +33,7 @@ const router = new VueRouter({
     routes: [
         {
             path: '/:',
-            component: Apps,
-            props: {
-                translations: module_translations,
-                categories: app_categories,
-            },
+            component: AppStoreSPALayout,
         },
         {
             path: '/apps',
@@ -46,7 +42,8 @@ const router = new VueRouter({
                 translations: module_translations,
                 categories: app_categories,
                 url: url,
-                token: window.Laravel.csrfToken
+                token: window.Laravel.csrfToken,
+                api_key: api_key
             },
             
             children: [
@@ -121,6 +118,12 @@ const router = new VueRouter({
                     path: 'api-key/create',
                     name: 'apiKey',
                     component: ApiKey,
+                     props: {
+                        translations: module_translations,
+                        url: url,
+                        token: window.Laravel.csrfToken,
+                        api_key: api_key
+                    },
                 },
                 {
                     path: ':appName',

@@ -78,13 +78,17 @@ export default {
   },
 
   async mounted() {
-    await window.axios.get(url + '/apps/my').then(res => {
-        this.installed = res.data.data.installed;
-        this.isInstalled = Object.keys(res.data.data.installed);
-    }); 
-    await this.getData();  
-    this.setLastPage();
-    this.pageData ? this.pageData.installed = this.pageData.slug : {};
+    if(api_key) {
+      await window.axios.get(url + '/apps/my').then(res => {
+          this.installed = res.data.data.installed;
+          this.isInstalled = Object.keys(res.data.data.installed);
+      }); 
+      await this.getData();  
+      this.setLastPage();
+      this.pageData ? this.pageData.installed = this.pageData.slug : {};
+      this.isLoading = false;
+    }
+
     this.isLoading = false;
   },
 

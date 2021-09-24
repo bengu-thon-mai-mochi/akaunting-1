@@ -38,6 +38,7 @@
         
         var module_translations = {!! json_encode($translations) !!};
         var aka_currency = {!! !empty($currency) ? $currency : 'false' !!};
+        var api_key ='{{ setting("apps.api_key") }}';
     //--></script>
 
     @stack('js')

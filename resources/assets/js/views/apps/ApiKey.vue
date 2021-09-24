@@ -23,7 +23,7 @@
                   <input
                     data-name="api_key"
                     v-model="inputValue"
-                    :placeholder="translations.api_key.enter"
+                    :placeholder="!api_key ? translations.api_key.enter : api_key"
                     required="required"
                     name="api_key"
                     type="text"
@@ -31,7 +31,6 @@
                     class="form-control"
                   />
                 </div>
-
                 <!---->
               </div>
               <div class="col-sm-12">
@@ -70,6 +69,9 @@ export default {
     },
     token: {
       type: String,
+    },
+    api_key: {
+      type: String
     }
   },
 
