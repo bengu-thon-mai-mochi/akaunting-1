@@ -20,6 +20,7 @@
             :translations="this.$attrs.translations"
             @on-submit="handleSubmit"
             :url="this.$attrs.url"
+            :token="this.$attrs.token"
           ></router-view>
         <div>
             <spinner class="text-center py-6" v-show="isLoading"></spinner>
@@ -56,7 +57,7 @@ export default {
   },
 
   mixins: [  
-    Global 
+    Global
   ],
 
   data() {
@@ -141,7 +142,7 @@ export default {
                 url: url + "/apps/api-key",
                 data: data,
                 headers: {
-                  "X-CSRF-TOKEN": window.Laravel.csrfToken,
+                  "X-CSRF-TOKEN": this.$attrs.token,
                   "X-Requested-With": "XMLHttpRequest",
                   "Content-Type": "multipart/form-data",
                 },
@@ -155,7 +156,7 @@ export default {
     },
 
     onSuccess(response) {
-        this.errors = {};
+        this.Error = {};
       
         this.isLoading = false;
 
@@ -169,7 +170,7 @@ export default {
     },
 
     onFail(error) {
-         this.errors = error.response.data.errors;
+         this.error = error.response.data.errors;
 
          this.isLoading = false;
     },

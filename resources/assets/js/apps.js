@@ -45,7 +45,8 @@ const router = new VueRouter({
             props: {
                 translations: module_translations,
                 categories: app_categories,
-                url: url
+                url: url,
+                token: window.Laravel.csrfToken
             },
             
             children: [

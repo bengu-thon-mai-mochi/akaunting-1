@@ -9,7 +9,7 @@
           ref="form"
           enctype="multipart/form-data" 
           class="form-loading-button">
-          <input name="_token" type="hidden" value="xZYEv7ZyANRi7UZ4Ehfz47p3Ops7HSdf2SGyD2Ay" />
+          <input name="_token" type="hidden" :value="this.token" />
           <div class="card-body">
             <div class="row">
               <div class="form-group col-sm-12 required">
@@ -68,6 +68,9 @@ export default {
     translations: {
       type: Object
     },
+    token: {
+      type: String,
+    }
   },
 
   mixins: [  
@@ -88,12 +91,12 @@ export default {
       for (let [key, val] of formData.entries()) {
         Object.assign(data_name, {
           "api_key": val,
-          ["_token"]: window.Laravel.csrfToken,
+          ["_token"]: this.token,
         });
       } 
       
       this.$emit('on-submit', formData)
-    }
+    },
   },
 };
 </script>
