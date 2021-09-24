@@ -12,7 +12,7 @@
           <input name="_token" type="hidden" :value="this.token" />
           <div class="card-body">
             <div class="row">
-              <div class="form-group col-sm-12 required">
+              <div :class="`form-group col-sm-12 required ${formError ? 'has-error' : ''}`">
                 <label for="api_key" class="form-control-label">{{ translations.header.api_key }}</label>
                 <div class="input-group input-group-merge">
                   <div class="input-group-prepend">
@@ -29,8 +29,10 @@
                     type="text"
                     id="api_key"
                     class="form-control"
+                    @input="clearInput"
                   />
                 </div>
+              <div v-if="formError" class="invalid-feedback d-block">Error: The API Key entered is invalid!</div>
                 <!---->
               </div>
               <div class="col-sm-12">
@@ -81,11 +83,16 @@ export default {
 
   data() {
     return {
-      inputValue: ""
+      inputValue: `${api_key ?  api_key : ''}`,
+      formError: "",
     };
   },
 
   methods: {
+    clearInput() {
+      this.formError = ""
+    },
+
     onSubmit() {
       const formData = new FormData(this.$refs["form"]);
       let data_name = {};
@@ -96,8 +103,37 @@ export default {
           ["_token"]: this.token,
         });
       } 
+
+      window.axios({
+                method: "POST",
+                url: url + "/apps/api-key",
+                data: formData,
+                headers: {
+                  "X-CSRF-TOKEN": this.$attrs.token,
+                  "X-Requested-With": "XMLHttpRequest",
+                  "Content-Type": "multipart/form-data",
+                },
+            })
+            .then((response) => {
+              this.onSuccess(response);
+            })
+            .catch((error) => {
+              this.formError = error.response.data.errors;
+            });
+    },
+
+    onSuccess(response) {
+        this.Error = {};
       
-      this.$emit('on-submit', formData)
+        this.isLoading = false;
+
+        if (response.data.redirect) {
+            this.isLoading = true;
+
+            window.location.href = response.data.redirect;
+        }
+
+        this.response = response.data;
     },
   },
 };

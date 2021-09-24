@@ -18,7 +18,6 @@
             :isInstalled="isInstalled"
             :installed= "installed"
             :translations="this.$attrs.translations"
-            @on-submit="handleSubmit"
             :url="this.$attrs.url"
             :token="this.$attrs.token"
           ></router-view>
@@ -134,49 +133,6 @@ export default {
       const pageNumber =  `${this.currentPage++}`
 
       this.$router.push(`?page=${pageNumber}`);
-    },
-
-    handleSubmit(data) {
-      this.$emit('onSubmit', data);
-
-      this.isLoading = true;
-
-      window.axios({
-                method: "POST",
-                url: url + "/apps/api-key",
-                data: data,
-                headers: {
-                  "X-CSRF-TOKEN": this.$attrs.token,
-                  "X-Requested-With": "XMLHttpRequest",
-                  "Content-Type": "multipart/form-data",
-                },
-            })
-            .then((response) => {
-                this.onSuccess(response);
-            })
-            .catch((error) => {
-              this.onFail(error);
-            });
-    },
-
-    onSuccess(response) {
-        this.Error = {};
-      
-        this.isLoading = false;
-
-        if (response.data.redirect) {
-            this.isLoading = true;
-
-            window.location.href = response.data.redirect;
-        }
-
-        this.response = response.data;
-    },
-
-    onFail(error) {
-         this.error = error.response.data.errors;
-
-         this.isLoading = false;
     },
   },
   
