@@ -27,19 +27,18 @@
             </div>
           </div>
           <div class="vr d-none d-sm-block"></div>
-          <div class="col-xs-12 col-sm-6">
-            <div class="searh-field tags-input__wrapper">
-              <input 
-                name="keyword" 
-                v-model="query" 
-                type="text" 
-                @keydown.enter="handleEnter"
-                :placeholder="translations.searchBar.search_placeholder" 
-                autocomplete="off" 
-                class="form-control form-control-sm d-inline-block w-100"
-              >
-            </div>
-                </div>
+          <div class="col-xs-12 col-sm-6 searh-field tags-input__wrapper">
+               <el-autocomplete
+                      :fetch-suggestions="fetchResults"
+                      name="keyword"
+                      :options="results"
+                      @keydown.enter="handleEnter"
+                      v-model="query"
+                      @select="handleEnter"
+                      :placeholder="translations.searchBar.search_placeholder"
+                    >
+                </el-autocomplete>
+              </div>
                 <div class="col-xs-12 col-sm-4 text-center">
                   <router-link to="/apps/paid" class="btn btn-white btn-sm" exact>{{ translations.general.top_paid }}</router-link>
                   <router-link to="/apps/new" class="btn btn-white btn-sm">{{ translations.general.new }}</router-link>
@@ -55,7 +54,7 @@
 
 <script>
 import AkauntingSelect from '../../../components/AkauntingSelect.vue';
-import { Select, Option, OptionGroup } from "element-ui"
+import { Select, Option, OptionGroup, Autocomplete } from "element-ui"
 
 export default {
     name: 'SearchBar',
@@ -64,6 +63,7 @@ export default {
       [Select.name]: Select,
       [Option.name]: Option,
       [OptionGroup.name]: OptionGroup,
+      [Autocomplete.name]: Autocomplete,
     },
 
     props: {
@@ -79,6 +79,7 @@ export default {
       return {
         query: '',
         selected: '',
+        results: [],
       }
     },
 
@@ -93,10 +94,32 @@ export default {
 
         this.query = '';
       },
+
       handleEnter(){
         this.$emit('handleSearch',this.query);
         this.selected = '';
-      }
+      },
+
+      fetchResults(queryString, cb){
+        const endPoint = url + '/apps/search?keyword='+ queryString;
+        
+        window.axios.get(endPoint)
+          .then(response => { 
+            response.data.modules
+            ? this.results = response.data.title
+            : []
+          })
+          .then(() => console.log(this.results))
+          .then(() => cb(this.results))
+          .catch(error => {});
+  
+        /*
+        const endPoint = url + '/apps/search?keyword='+ this.query;
+          await window.axios.get(endPoint)
+              .then(response => this.results = response.data.data)
+              .catch(error => {});
+              */
+      },
     }
 }
 </script>
