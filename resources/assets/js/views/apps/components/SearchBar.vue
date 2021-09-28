@@ -27,24 +27,28 @@
             </div>
           </div>
           <div class="vr d-none d-sm-block"></div>
-          <div class="col-xs-12 col-sm-6 searh-field tags-input__wrapper">
-               <el-autocomplete
-                      :fetch-suggestions="fetchResults"
-                      name="keyword"
-                      :options="results"
-                      @keydown.enter="handleEnter"
-                      v-model="query"
-                      @select="handleEnter"
-                      :placeholder="translations.searchBar.search_placeholder"
+          <div class="col-xs-12 col-sm-6">
+            <div class="searh-field tags-input__wrapper">
+               <input
+                    name="keyword"
+                    @keydown.enter="handleEnter"
+                    v-model="query"
+                    @input="fetchResults"
+                    :placeholder="translations.searchBar.search_placeholder"
                     >
-                </el-autocomplete>
+                </input>
               </div>
+            </div>
+            <ul v-show="results">
+                  <li v-for="result in results">
+                    <a href="_target"> result.name </a> <button> Buy Now </button><button> Add to Cart </button>
+                  </li>
+            </ul>
                 <div class="col-xs-12 col-sm-4 text-center">
                   <router-link to="/apps/paid" class="btn btn-white btn-sm" exact>{{ translations.general.top_paid }}</router-link>
                   <router-link to="/apps/new" class="btn btn-white btn-sm">{{ translations.general.new }}</router-link>
                   <router-link to="/apps/free" class="btn btn-white btn-sm">{{ translations.general.top_free }}</router-link>
                 </div>
-              </div>
             </div>
           </div>
         </div>
@@ -100,25 +104,17 @@ export default {
         this.selected = '';
       },
 
-      fetchResults(queryString, cb){
-        const endPoint = url + '/apps/search?keyword='+ queryString;
+      fetchResults(){
+        const endPoint = url + '/apps/search?keyword='+ this.query;
         
         window.axios.get(endPoint)
           .then(response => { 
-            response.data.modules
-            ? this.results = response.data.title
-            : []
+            response.data.data.modules
+            ? this.results = response.data.data.modules.data
+            : this.results 
           })
           .then(() => console.log(this.results))
-          .then(() => cb(this.results))
           .catch(error => {});
-  
-        /*
-        const endPoint = url + '/apps/search?keyword='+ this.query;
-          await window.axios.get(endPoint)
-              .then(response => this.results = response.data.data)
-              .catch(error => {});
-              */
       },
     }
 }
