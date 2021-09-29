@@ -8,6 +8,7 @@
       <SearchBar 
         v-show="this.$route.name !== 'apiKey'" 
         :values="this.$attrs.categories"
+        :url="this.$attrs.url"
         :translations="this.$attrs.translations"
         @handleSelect="filterByCategory"
         @handleSearch="filterByKeyword"

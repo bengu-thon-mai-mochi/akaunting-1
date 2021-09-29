@@ -29,21 +29,29 @@
           <div class="vr d-none d-sm-block"></div>
           <div class="col-xs-12 col-sm-6">
             <div class="searh-field tags-input__wrapper">
-               <input
+               <el-autocomplete
                     name="keyword"
+                    :trigger-on-focus="false"
+                    select-when-unmatched	
+                    :value="query"
+                    @select.native="handleEnter"
                     @keydown.enter="handleEnter"
+                    :fetch-suggestions="fetchResults"
                     v-model="query"
-                    @input="fetchResults"
+                    popper-class="dropdown-menu dropdown-menu-xl dropdown-menu-center show"
                     :placeholder="translations.searchBar.search_placeholder"
                     >
-                </input>
+                     <template slot-scope="{ item }">
+                        <div class="item">
+                          <img width="30px"/>
+                          <router-link :to="item.slug" >{{ item.value }}</router-link>
+                          <a class="btn btn-warning">Add to Cart</a>
+                          <a class="btn btn-success" :to="item.action_url">Buy Now</a>
+                        </div>
+                      </template>
+                </el-autocomplete>
               </div>
             </div>
-            <ul v-show="results">
-                  <li v-for="result in results">
-                    <a href="_target"> result.name </a> <button> Buy Now </button><button> Add to Cart </button>
-                  </li>
-            </ul>
                 <div class="col-xs-12 col-sm-4 text-center">
                   <router-link to="/apps/paid" class="btn btn-white btn-sm" exact>{{ translations.general.top_paid }}</router-link>
                   <router-link to="/apps/new" class="btn btn-white btn-sm">{{ translations.general.new }}</router-link>
@@ -99,22 +107,29 @@ export default {
         this.query = '';
       },
 
-      handleEnter(){
-        this.$emit('handleSearch',this.query);
+      handleEnter(e){
+        this.$emit('handleSearch', this.query);
         this.selected = '';
       },
 
-      fetchResults(){
+      addCart(e){
+        console.log(e)
+      },
+
+      async fetchResults(q, setDropdownData){
         const endPoint = url + '/apps/search?keyword='+ this.query;
-        
-        window.axios.get(endPoint)
-          .then(response => { 
-            response.data.data.modules
-            ? this.results = response.data.data.modules.data
-            : this.results 
-          })
-          .then(() => console.log(this.results))
-          .catch(error => {});
+
+        const result = await window.axios.get(endPoint).then(res => res);
+      
+        result.data.data.modules ? 
+          result.data.data.modules.data.forEach( res =>
+             this.results.push({ "value": res.name , "slug": res.slug, "logo": res.files, "link": res.action_url })
+          )
+          : this.results = [];
+      
+        setDropdownData(this.results);
+
+        this.results = [];
       },
     }
 }
