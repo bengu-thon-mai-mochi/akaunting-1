@@ -15,7 +15,7 @@
       ></SearchBar>
         <router-view 
             v-show="!isLoading" 
-            :modules="pageData ? pageData : {}"
+            :modules="pageData"
             :isInstalled="isInstalled"
             :installed= "installed"
             :translations="this.$attrs.translations"

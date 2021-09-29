@@ -32,40 +32,33 @@
                <el-autocomplete
                     name="keyword"
                     class="col"
-                    :trigger-on-focus="false"
-                    select-when-unmatched	
-                    :value="query"
+                    :trigger-on-focus="false" 
                     @select.native="handleEnter"
-                    @keydown.enter.native="handleEnter"
+                    @keydown.enter="handleEnter"
                     :fetch-suggestions="fetchResults"
                     v-model="query"
-                    popper-class="list-group-item  list-group-item-active dropdown-menu-xl justify-content-start dropdown-menu-center show"
+                    value-key=""
+                    popper-class="list-group-item list-group-item-active dropdown-menu-xl justify-content-start dropdown-menu-center show"
                     :placeholder="translations.searchBar.search_placeholder"
                     >
                      <template slot-scope="{ item }">
                         <div class="item d-flex justify-content-between align-items-center">
-                            <router-link :to="item.slug" class="item dropdown-item  d-flex justify-content-start list-group-item-active">
-                              <img class="col-sm-2 p-1" max-width="30px"/>
-                              <h5 class="col-sm-6">{{ item.value }}</h5>
-                              <h4 v-show="item.price" class="col-sm-5 font-weight-600">{{ item.price }}</h4>
-                            </router-link>
-                           <div>
-                            <div>
-                              <div v-if="!item.installedApps.includes(item.slug)">
-                                <div v-if="item.price">
-                                  <a class="btn btn-sm badge btn-success text-white" :href="item.action_url">Buy Now</a>
-                                  <button @click="addCart" class="btn btn-sm badge btn-warning text-white">Add to Cart</button> 
-                                </div>
-                                <div v-else>
-                                  <span class="badge btn-sm bg-green text-white">{{ translations.general.free }}</span>
-                                </div>
+                            <router-link :to="item.slug" class="item dropdown-item col-6  d-flex justify-content-start align-items-center list-group-item-active">
+                              <div class="mb-0" >
+                                <img width="50px" :src="Object.values(item.logo).flat()[0]['path_string']"/>
                               </div>
-                            
-                              <div v-else> 
-                                <span class="badge bg-green text-white" :to="item.action_url">Installed</span>
+                              <h5 class="col-sm-8 mb-0">{{ item.value }}</h5>
+                              <h4 v-if="item.price" class="col-sm-6 mb-0 font-weight-600">{{ item.price }}</h4>
+                            </router-link>
+                            <div class="item d-flex col-6 justify-content-end align-items-center list-group-item-active">
+                              <div v-if="!item.installedApps.includes(item.slug) && item.price">
+                                <a class="col-sm-6 mb-0 btn btn-sm badge btn-success text-white" :href="item.action_url">{{ translations.actions.buy_now }} </a>
+                                <button @click="addCart" class="btn btn-sm badge btn-warning text-white">Add to Cart</button> 
+                              </div>
+                              <div v-if="!item.price" class="col-6 align-items-center">
+                                <h2 class="mb-0 col-sm-12">{{ translations.general.free }}</h2>
                               </div>
                             </div>
-                          </div>
                         </div>
                       </template>
                 </el-autocomplete>
@@ -126,9 +119,10 @@ export default {
         this.query = '';
       },
 
-      handleEnter(e){
+      handleEnter(){
         this.$emit('handleSearch', this.query);
         this.selected = '';
+        this.query = '';
       },
 
       addCart(e){
@@ -142,7 +136,7 @@ export default {
 
         const installedApps = Object.keys(result.data.data.installed);
       
-        result.data.data.modules ? 
+        result.data.data.modules.data ? 
           result.data.data.modules.data.forEach( res =>
              this.results.push({ "value": res.name , "slug": res.slug, "logo": res.files, "price": res.price, "link": res.action_url, "installedApps": installedApps, })
           )

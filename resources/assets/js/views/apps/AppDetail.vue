@@ -230,6 +230,9 @@ export default {
     isInstalled: {
       type: Object | Array
     },
+    modules: {
+      type: Object | Array
+    }
   },
 
   data() {
@@ -238,7 +241,6 @@ export default {
       faq: false,
       actionsCompleted: true,
       appData: {},
-      reviewPages: [],
       pageReviews: {},
       paginationData: {},
       discountPrice: '',
@@ -258,9 +260,10 @@ export default {
   },
 
   async mounted() {
+    this.loading = true;
     this.translations = this.$attrs.translations;
     const { appName } = this.$route.params;
-    this.appData = await this.getPageData(appName);
+    this.appData = this.modules ? await this.getPageData(appName) : this.modules;
     
     const { current_page, last_page, from, to, per_page, total, data } = this.appData.app_reviews;
     this.paginationData = { current_page, last_page, from, to, per_page, total };
@@ -276,6 +279,7 @@ export default {
 
     async getPageData(param){
       this.actionsCompleted = false;
+      this.loading=true;
       const result = await window.axios.get( url + '/apps/' + param);
       const data = await result.data.data;   
 
@@ -396,6 +400,15 @@ export default {
       setTimeout(() => {
         this.actionsCompleted = true;
       }, 1000);
+    },
+    async modules() {
+      const { appName } = this.$route.params;
+      this.appData = await this.getPageData(appName);
+      const { current_page, last_page, from, to, per_page, total, data } = this.appData.app_reviews;
+      this.paginationData = { current_page, last_page, from, to, per_page, total };
+      this.discountPrice = this.appData.special_price;
+      this.pageReviews = data;
+      this.loading=false;
     }
   }
 };
