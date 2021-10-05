@@ -1,4 +1,10 @@
 const mix = require('laravel-mix');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+let { VueLoaderPlugin } = require('vue-loader');
+ const tailwindcss = require('tailwindcss');
+const { treemapResquarify } = require('d3-hierarchy');
+
+
 
 /*
  |--------------------------------------------------------------------------
@@ -14,13 +20,52 @@ const mix = require('laravel-mix');
 //mix.js('resources/assets/js/views/**/*.js', 'public/js')
 
 mix
-    .setPublicPath('public/js')
+    .setPublicPath('public/')
     .webpackConfig({
         output: {
             publicPath: 'public/js/',
             filename: '[name].js',
             chunkFilename: '[name].js',
         },
+        module: {
+            rules: [
+                {
+                    test: /\.js?$/,
+                    exclude: [/node_modules/],
+                    loader: 'babel-loader',
+                },
+                {
+                    test: /\.vue$/,
+                    exclude: [/node_modules/],
+                    use: [
+                        'vue-loader',
+                    ]
+                },
+                {
+                    test:  /\.s(a|c)ss$/,
+                    use: [
+                         {
+                             loader: "sass-loader",
+                             options: {
+                                implementation: require('node-sass'),
+                                sourceMap: true,
+                                sassOptions: {
+                                    outputStyle: "extended",
+                                    fiber: require('fibers'),
+                                },
+                             }
+                        },
+                    ]
+                },
+            ],
+        },
+        stats: {
+            children: true,
+        },
+        resolve: {
+            alias: { vue: 'vue/dist/vue.esm.js' },
+            extensions: ['.css', '.scss', '.less', '.js', '.jsx', '.vue']
+        }
     })
 
     // Auth
@@ -74,5 +119,54 @@ mix
     .js('resources/assets/js/views/settings/modules.js', 'public/js/settings')
     .js('resources/assets/js/views/settings/settings.js', 'public/js/settings')
     .js('resources/assets/js/views/settings/taxes.js', 'public/js/settings')
+    
+    .js('resources/assets/js/views/**/*.js', 'public/js')
+        
+    
+    .postCss('resources/assets/sass/app.css', 'public/css', [
+        require('tailwindcss'),
+        require('autoprefixer'),
+        require('postcss-preset-env')
+    ])
+    .options({
+        processCssUrls: true,
+        postCss: [tailwindcss('./tailwind.config.js')]
+    }).sourceMaps();
+    
+/* 
 
-    .sass('resources/assets/sass/app.scss', 'public/css');
+mix.sourceMaps();
+
+                         {
+                            loader: "sass-loader",
+                            options: {
+                                implementation: require("sass"),
+                                sourceMap: true,
+                                sassOptions: {
+                                    quietDeps: true,
+                                    outputStyle: 'expanded',
+                                }, 
+                            },
+                        },
+
+
+{
+                            loader: 'css-loader',
+                            options: {
+                                modules: true
+                            },
+                            
+                        },
+                        'sass-loader',
+                        {
+                            loader: `postcss-loader`,
+                            options: {
+                                options: {},
+                            }
+                        },
+                        {
+                            loader: MiniCssExtractPlugin.loader,
+                            options: { publicPath: "" },
+                        },
+                    ]
+                    */

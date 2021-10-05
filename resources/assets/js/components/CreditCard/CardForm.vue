@@ -348,7 +348,6 @@
 import axios from 'axios';
 
 import Card from './Card';
-import './../../../css/creditcard/style.scss';
 
 export default {
     name: 'CardForm',

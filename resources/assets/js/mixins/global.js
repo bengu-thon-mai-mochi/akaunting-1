@@ -20,6 +20,9 @@ import AkauntingHtmlEditor from './../components/AkauntingHtmlEditor';
 import AkauntingCountdown from './../components/AkauntingCountdown';
 import AkauntingCurrencyConversion from './../components/AkauntingCurrencyConversion';
 
+
+import '../../sass/app.css'
+
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import NProgressAxios from './../plugins/nprogress-axios';

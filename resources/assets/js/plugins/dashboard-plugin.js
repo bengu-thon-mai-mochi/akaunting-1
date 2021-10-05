@@ -17,9 +17,6 @@ import locale from 'element-ui/lib/locale';
 
 locale.use(lang);
 
-// asset imports
-import './../../sass/argon.scss';
-
 export default {
     install(Vue) {
         Vue.use(GlobalComponents);
