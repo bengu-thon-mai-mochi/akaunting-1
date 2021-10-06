@@ -22,7 +22,7 @@
         </div>
       </div>
       <slot></slot>
-      <div class="navbar-inner">
+      <div class="navbaR">
         <ul class="navbar-nav">
           <slot name="links">
             <sidebar-item
