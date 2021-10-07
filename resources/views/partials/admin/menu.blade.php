@@ -39,10 +39,10 @@
                             </svg>
                         @endcan
                     </div>
+                  
                 </div>
-                        <ul  class="flex flex-col justify-center">
-                                 {!! menu('admin') !!}  
-                        </ul>
+                   
+                       {!! menu('admin') !!}  
                     <div class="group cursor-pointer">
                         <img src="./Group 190.png" class="hidden-xs-only " alt="" />
                     </div>
