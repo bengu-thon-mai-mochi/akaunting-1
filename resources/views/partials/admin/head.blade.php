@@ -6,6 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8; charset=ISO-8859-1"/>
 
+     <style>
+            .menu-scroll::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            .menu-scroll::-webkit-scrollbar-track {
+                border-radius: 10px;
+                background-color: gray;
+            }
+
+            .menu-scroll::-webkit-scrollbar-thumb {
+                border-radius: 10px;
+                background-color: #EDF0FC;
+            }
+
+            .js-menu.fixed-left+.main-content {
+                margin-left: 0 !important;
+            }
+
+        </style>
+
     <title>@yield('title') - @setting('company.name')</title>
 
     <base href="{{ config('app.url') . '/' }}">

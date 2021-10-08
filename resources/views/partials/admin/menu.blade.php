@@ -1,27 +1,30 @@
 @stack('menu_start')
+<div class="w-70 h-screen flex fixed js-menu transition">
     <nav class="flex h-screen bg-menu fixed js-menu transition" id="sidenav-main">
+      
          <!--nav menu-->
         <div class="w-14 py-7 px-1 bg-menu-light">
             <div class="mb-5 cursor-pointer">
                 <img src="../../../../public/Avatar.png" class="m-auto focus:outline-none" alt="avatar" />
             </div>
-                <div class="group flex flex-col items-center justify-center">
-                        <div class="flex items-center justify-center w-8 h-8 mb-2.5 cursor-pointer js-menu-toggles" data-menu="notification">
-                            <ion-icon name="notifications-outline" class="text-purple-medium w-5 h-5 mt-1"></ion-icon>
-                        </div>
-                        <div class="flex items-center justify-center w-8 h-8 mb-2.5 cursor-pointer js-menu-toggles" data-menu="settings">
-                            <ion-icon name="settings-outline" class="text-purple-medium w-5 h-5 mt-1"></ion-icon>
-                        </div>
-                        <div class="flex items-center justify-center w-8 h-8 mb-2.5 cursor-pointer js-menu-toggles" data-menu="add-circle">
-                            <ion-icon name="add-circle-outline" class="text-purple-medium w-5 h-5 mt-1"></ion-icon>
-                        </div>
-                    </div>
-                    <div class="absolute -right-0 top-8 cursor-pointer transition-opacity js-navbar-shrink">
-                        <ion-icon name="caret-back-outline" class="text-white text-xs bg-purple-medium rounded-full" style="padding: 2px;"></ion-icon>
-                    </div>
+            <div class="group flex flex-col items-center justify-center">
+                <div class="flex items-center justify-center w-8 h-8 mb-2.5 cursor-pointer js-menu-toggles" data-menu="notification">
+                    <ion-icon name="notifications-outline" class="text-secondary w-5 h-5 mt-1"></ion-icon>
+                </div>
+                <div class="flex items-center justify-center w-8 h-8 mb-2.5 cursor-pointer js-menu-toggles" data-menu="settings">
+                    <ion-icon name="settings-outline" class="text-secondary w-5 h-5 mt-1"></ion-icon>
+                </div>
+                <div class="flex items-center justify-center w-8 h-8 mb-2.5 cursor-pointer js-menu-toggles" data-menu="add-circle">
+                    <ion-icon name="add-circle-outline" class="text-secondary w-5 h-5 mt-1"></ion-icon>
+                </div>
+            </div>
+
+            <button type="button" class="absolute -right-0 top-8 cursor-pointer transition-opacity js-navbar-shrink">
+                <ion-icon name="caret-back-outline" class="text-white text-xs bg-secondary rounded-full" style="padding: 2px;"></ion-icon>
+            </button>
         </div>
         <!--main menu-->
-        <div class="w-58 flex container w-72 flex-col justify-between py-7 px-5 menu-scroll overflow-y-auto js-main-menu">
+        <div class="w-56 flex container w-72 flex-col py-7 px-5 menu-scroll overflow-y-auto js-main-menu">
              <div>
                 <div class="flex items-center relative mb-5 cursor-pointer">
                     <img src="https://akaunting.com/public/images/akaunting-footer-logo.png" class="w-8 h-8" alt="logo" />
@@ -39,14 +42,15 @@
                             </svg>
                         @endcan
                     </div>
-                  
                 </div>
                    
-                       {!! menu('admin') !!}  
                     <div class="group cursor-pointer">
                         <img src="./Group 190.png" class="hidden-xs-only " alt="" />
                     </div>
+                    
             </div>
+             {!! menu('admin') !!}  
         </div>
     </nav>
+</div>
 @stack('menu_end')

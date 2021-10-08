@@ -38,13 +38,13 @@ class AddAdminItems
                 }, 10, [
                     'url' => '/' . company_id(),
                     'title' => $title,
-                    'icon' => 'fa fa-tachometer-alt',
+                    'icon' => 'speedometer-outline',
                 ]);
             } else {
                 $menu->add([
                     'url' => '/' . company_id(),
                     'title' => trans_choice('general.dashboards', 1),
-                    'icon' => 'fa fa-tachometer-alt',
+                    'icon' => 'speedometer-outline',
                     'order' => 10,
                 ]);
             }
@@ -53,7 +53,7 @@ class AddAdminItems
         // Items
         $title = trim(trans_choice('general.items', 2));
         if ($this->canAccessMenuItem($title, 'read-common-items')) {
-            $menu->route('items.index', $title, [], 20, ['icon' => 'fa fa-cube']);
+            $menu->route('items.index', $title, [], 20, ['icon' => 'cube-outline']);
         }
 
         // Sales
@@ -76,7 +76,7 @@ class AddAdminItems
                 }
             }, 30, [
                 'title' => $title,
-                'icon' => 'fa fa-money-bill',
+                'icon' => 'cash-outline',
             ]);
         }
 
@@ -100,7 +100,7 @@ class AddAdminItems
                 }
             }, 40, [
                 'title' => $title,
-                'icon' => 'fa fa-shopping-cart',
+                'icon' => 'cart-outline',
             ]);
         }
 
@@ -129,26 +129,26 @@ class AddAdminItems
                 }
             }, 50, [
                 'title' => $title,
-                'icon' => 'fa fa-briefcase',
+                'icon' => 'briefcase-outline',
             ]);
         }
 
         // Reports
         $title = trim(trans_choice('general.reports', 2));
         if ($this->canAccessMenuItem($title, 'read-common-reports')) {
-            $menu->route('reports.index', $title, [], 60, ['icon' => 'fa fa-chart-pie']);
+            $menu->route('reports.index', $title, [], 60, ['icon' => 'bar-chart-outline']);
         }
 
         // Settings
         $title = trim(trans_choice('general.settings', 2));
         if ($this->canAccessMenuItem($title, 'read-settings-settings')) {
-            $menu->route('settings.index', $title, [], 70, ['icon' => 'fa fa-cog']);
+            $menu->route('settings.index', $title, [], 70, ['icon' => 'settings-outline']);
         }
 
         // Apps
         $title = trim(trans_choice('general.modules', 2));
         if ($this->canAccessMenuItem($title, 'read-modules-home')) {
-            $menu->route('apps.home.index', $title, [], 80, ['icon' => 'fa fa-rocket']);
+            $menu->route('apps.home.index', $title, [], 80, ['icon' => 'rocket-outline']);
         }
     }
 }
