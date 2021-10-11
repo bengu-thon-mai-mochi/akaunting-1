@@ -1,3 +1,12 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
+const fontFamily = defaultTheme.fontFamily;
+fontFamily['sans'] = [
+  'Quicksand', // <-- Quicksand is a default sans font now
+  'system-ui',
+  // <-- Can provide more font fallbacks here
+];
+
 module.exports = {
   purge: { content: [
     '/resources/assets/js/*.vue',
@@ -7,11 +16,9 @@ module.exports = {
     '/resources/views/partials/admin/*.blade.php',
     '/resources/views/**/**/*.blade.php',
   ]},
-  darkMode: 'class', // or 'media' or 'class'
+  darkMode: 'class', // or 'media' or 'class',
   theme: {
-    fontFamily: {
-      sans: ['Quicksand', 'sans-serif'],
-    },
+    fontFamily: fontFamily,
     extend: {
       fontSize: {
         '2xl': ['1.375rem'], // 22PX

@@ -1,8 +1,11 @@
 const mix = require('laravel-mix');
 const tailwindcss = require('tailwindcss');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require('path');
 
-
+const PATHS = {
+  build: path.join(__dirname, 'public/')
+};
 
 
 /*
@@ -22,7 +25,7 @@ mix
     .setPublicPath('public/')
     .webpackConfig({
         output: {
-            publicPath: 'public/',
+            publicPath: PATHS.build,
             filename: '[name].js',
             chunkFilename: '[name].js',
         },
@@ -32,6 +35,12 @@ mix
                     test: /\.js?$/,
                     exclude: [/node_modules/],
                     loader: 'babel-loader',
+                },
+                {
+                    test: /\.(jpe?g|png|woff|woff2|eot|ttf|svg)(\?[a-z0-9=.]+)?$/, 
+                    use: [{
+                        loader: 'url-loader',
+                    }]
                 },
                 {
                     test: /\.vue$/,
@@ -68,7 +77,7 @@ mix
         },
         resolve: {
             alias: { vue: 'vue/dist/vue.esm.js' },
-            extensions: ['.css', '.scss', '.less', '.js', '.vue']
+            extensions: ['.css', '.scss', '.less', '.js', '.vue', 'woff2', 'ttf']
         },
     })
 

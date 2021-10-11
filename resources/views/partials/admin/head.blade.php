@@ -24,7 +24,6 @@
             .js-menu.fixed-left+.main-content {
                 margin-left: 0 !important;
             }
-
         </style>
 
     <title>@yield('title') - @setting('company.name')</title>

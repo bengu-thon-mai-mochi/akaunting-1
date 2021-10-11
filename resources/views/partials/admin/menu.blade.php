@@ -24,7 +24,7 @@
             </button>
         </div>
         <!--main menu-->
-        <div class="w-56 flex container w-72 flex-col py-7 px-5 menu-scroll overflow-y-auto js-main-menu">
+        <div class="w-72 flex-col py-7 px-5 menu-scroll overflow-y-auto js-main-menu">
              <div>
                 <div class="flex items-center relative mb-5 cursor-pointer">
                     <img src="https://akaunting.com/public/images/akaunting-footer-logo.png" class="w-8 h-8" alt="logo" />
