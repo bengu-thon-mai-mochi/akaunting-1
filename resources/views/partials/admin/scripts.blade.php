@@ -16,18 +16,47 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.0.2/echarts-en.min.js" charset=utf-8></script>
 
     <!-- Argon -->
+
+    <script type="text/javascript">
+        function logItem(e) {
+            console.log(eval(e))
+            const item = document.querySelectorAll(`[data-id=${e}]`)[0];
+            item.setAttribute('name', 'cube');
+        }
+    </script>
+        
+
     <script type="text/javascript">
         'use strict';
+        
+        var Layout = (function() {    
+            const toggleButton = document.querySelector('.toggle-button');
+            const addItem = document.querySelector('.add-item');
+            const sideBar = document.querySelector('.js-main-menu');
+            const sidebarContent = document.querySelector('.sidebar-content');
 
-        var Layout = (function() {
-            if (document.querySelector('.js-search-box-hidden')) {
-                let search_box_html = document.querySelector('.js-search-box-hidden');
-                let search_box_vue_component = search_box_html.parentNode.querySelector('.searh-field');
+            
+            /*
+            const fillIcon = function() {
+                const stringToEdit = addItemButton.children[0].getAttribute('name');
+                const activeIconName = stringToEdit.replace('-outline', '');
+                addItemButton.children[0].setAttribute('name', activeIconName); //or any other item to edit 
+            }; */
 
-                search_box_vue_component.classList.add('d-none');
-                search_box_html.classList.add('d-none');
-                search_box_vue_component.classList.remove('d-none');
+            addItem.addEventListener('click', function () {
+                sidebarContent.classList.add('hidden'); //hide main admin menu content
+                addItem.children[0].setAttribute('name', 'add-circle'); //active icon
+            });
+
+            function activateItem() {
+                const items =  document.querySelectorAll('.group'); 
+            
+                tems.forEach(el => el.addEventListener('click', (e)  => el.children[0].setAttribute('name', 'cube') ))
+                // Store the sidenav state in a cookie session
+                Cookies.set('sidenav-state', 'pinned');
             }
+
+
 
             function pinSidenav() {
                 $('.sidenav-toggler').addClass('active');

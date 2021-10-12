@@ -62,9 +62,7 @@
 
     {{ session()->forget('flash_notification') }}
 
-     <script  type="text/javascript" src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
-
     @stack('scripts')
-
+       <script  src="node_modules/ionicons/dist/ionicons.js"></script>
     @stack('head_end')
 </head>

@@ -7,24 +7,20 @@
             <div class="mb-5 cursor-pointer">
                 <img src="../../../../public/Avatar.png" class="m-auto focus:outline-none" alt="avatar" />
             </div>
-            <div class="group flex flex-col items-center justify-center">
-                <div class="flex items-center justify-center w-8 h-8 mb-2.5 cursor-pointer js-menu-toggles" data-menu="notification">
+            <div class="group flex flex-col items-center justify-center menu-toggle-buttons">
+                <button class="flex items-center justify-center w-8 h-8 mb-2.5 cursor-pointer js-menu-toggles" data-menu="notification">
                     <ion-icon name="notifications-outline" class="text-secondary w-5 h-5 mt-1"></ion-icon>
-                </div>
-                <div class="flex items-center justify-center w-8 h-8 mb-2.5 cursor-pointer js-menu-toggles" data-menu="settings">
+                </button>
+                <button class="flex items-center justify-center w-8 h-8 mb-2.5 cursor-pointer js-menu-toggles" data-menu="settings">
                     <ion-icon name="settings-outline" class="text-secondary w-5 h-5 mt-1"></ion-icon>
-                </div>
-                <div class="flex items-center justify-center w-8 h-8 mb-2.5 cursor-pointer js-menu-toggles" data-menu="add-circle">
+                </button>
+                <button class="add-item flex items-center justify-center w-8 h-8 mb-2.5 cursor-pointer js-menu-toggles" data-menu="add-circle">
                     <ion-icon name="add-circle-outline" class="text-secondary w-5 h-5 mt-1"></ion-icon>
-                </div>
+                </button>
             </div>
-
-            <button type="button" class="absolute -right-0 top-8 cursor-pointer transition-opacity js-navbar-shrink">
-                <ion-icon name="caret-back-outline" class="text-white text-xs bg-secondary rounded-full" style="padding: 2px;"></ion-icon>
-            </button>
         </div>
         <!--main menu-->
-        <div class="w-72 flex-col py-7 px-5 menu-scroll overflow-y-auto js-main-menu">
+        <div class="w-72 flex-col py-7 px-5 menu-scroll overflow-y-auto transform translate-x-0 js-main-menu">
              <div>
                 <div class="flex items-center relative mb-5 cursor-pointer">
                     <img src="https://akaunting.com/public/images/akaunting-footer-logo.png" class="w-8 h-8" alt="logo" />
@@ -44,13 +40,27 @@
                     </div>
                 </div>
                    
-                    <div class="group cursor-pointer">
-                        <img src="./Group 190.png" class="hidden-xs-only " alt="" />
-                    </div>
+                <div class="group cursor-pointer">
+                    <img src="./Group 190.png" class="hidden-xs-only " alt="" />
+                </div>
                     
             </div>
-             {!! menu('admin') !!}  
+            <div class="sidebar-content transform">
+                {!! menu('admin') !!}  
+               
+                @can('show-modules')
+                    {!! menu('modules') !!}  
+                @endcan
+
+                @can('show-settings')
+                     {!! menu('settings') !!}  
+                @endcan
+            </div>
         </div>
+            
+        <button type="button" class="toggle-button absolute -right-2 top-8 cursor-pointer transition-opacity js-navbar-shrink">
+            <ion-icon name="caret-back-outline" class="text-white text-xs bg-secondary rounded-full" style="padding: 2px;"></ion-icon>
+        </button>
     </nav>
 </div>
 @stack('menu_end')
