@@ -24,6 +24,21 @@
             .js-menu.fixed-left+.main-content {
                 margin-left: 0 !important;
             }
+
+            details[open] summary ~ * {
+                animation-name: bounce;
+                animation-duration: 0.7s;
+              // animation: cubic-bezier(0.4, 0, 0.2, 1) 0.20s ease-in-out
+            }
+
+            @keyframes rotate {
+            0% {
+                transform: rotate(0);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+}
         </style>
 
     <title>@yield('title') - @setting('company.name')</title>

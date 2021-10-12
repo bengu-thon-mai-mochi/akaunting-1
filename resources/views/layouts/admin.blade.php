@@ -3,9 +3,9 @@
     @include('partials.admin.head')
 
     @mobile
-        <body id="leftMenu" class="g-sidenav-hidden">	
+        <body id="leftMenu" class="g-sidenav-hidden font-sans">	
     @elsemobile
-        <body id="leftMenu" class="g-sidenav-show">	
+        <body id="leftMenu" class="g-sidenav-show font-sans">	
     @endmobile
 
         @stack('body_start')

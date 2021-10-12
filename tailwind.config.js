@@ -2,7 +2,7 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 
 const fontFamily = defaultTheme.fontFamily;
 fontFamily['sans'] = [
-  'Quicksand', // <-- Quicksand is a default sans font now
+  '"Quicksand"',// <-- Quicksand is a default sans font now
   'system-ui',
   // <-- Can provide more font fallbacks here
 ];

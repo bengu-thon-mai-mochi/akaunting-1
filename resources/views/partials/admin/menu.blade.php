@@ -1,5 +1,5 @@
 @stack('menu_start')
-<div class="w-70 h-screen flex fixed js-menu transition">
+<div class="w-70 h-screen flex fixed js-menu transition font-sans">
     <nav class="flex h-screen bg-menu fixed js-menu transition" id="sidenav-main">
       
          <!--nav menu-->
@@ -57,26 +57,128 @@
                 @endcan
             </div>
             <div class="modules-menu hidden transform">
-                <li class="font-sans group relative mb-2.5">
-                    <a href="/" class="flex items-center text-secondary">
-                        <div class="w-8 h-8 flex items-center justify-center">
-                            <ion-icon name="folder-outline" class="w-5 h-5"></ion-icon>
-                        </div>
-                        <span class="text-sm font-medium ml-4">modules</span>
+                 <ul class="flex flex-col justify-center">
+                    <li class="group relative mb-2.5">
+                       <a href="/" class="flex items-center text-secondary">
+                            <div class="w-8 h-8 flex items-center justify-center">
+                                 <ion-icon name="speedometer-outline" class="w-5 h-5"></ion-icon>
+                            </div>
+                        <span class="text-sm font-normal font-sans ml-2">Invoice</span>
                         <span class="bg-secondary h-5 rounded-tl-lg rounded-bl-lg absolute -right-5 opacity-0 group-hover:opacity-100 transition-all" style="width: 5px;"></span>
-                    </a>
-                </li>
+                                </a>
+                            </li>
+                            <li class="group relative mb-2.5">
+                                <a href="/" class="flex items-center text-secondary">
+                                    <div class="w-8 h-8 flex items-center justify-center">
+                                        <ion-icon name="cube-outline" class="w-5 h-5"></ion-icon>
+                                    </div>
+                                    <span class="text-sm font-normal font-sans ml-4">Revenue</span>
+                                    <span class="bg-secondary h-5 rounded-tl-lg rounded-bl-lg absolute -right-5 opacity-0 group-hover:opacity-100 transition-all" style="width: 5px;"></span>
+                                </a>
+                            </li>
+
+                            <li class="group relative mb-2.5">
+                                <a href="/" class="flex items-center text-secondary">
+                                    <div class="w-8 h-8 flex items-center justify-center">
+                                        <ion-icon name="cube-outline" class="w-5 h-5"></ion-icon>
+                                    </div>
+                                    <span class="text-sm font-normal font-sans ml-4">Revenue</span>
+                                    <span class="bg-secondary h-5 rounded-tl-lg rounded-bl-lg absolute -right-5 opacity-0 group-hover:opacity-100 transition-all" style="width: 5px;"></span>
+                                </a>
+                            </li>
+                            <li class="group relative mb-2.5">
+                                <a href="/" class="flex items-center text-secondary">
+                                    <div class="w-8 h-8 flex items-center justify-center">
+                                        <ion-icon name="cart-outline" class="w-5 h-5"></ion-icon>
+                                    </div>
+                                    <span class="text-sm font-normal font-sans ml-4">Customer</span>
+                                    <ion-icon name="chevron-down-outline" class="absolute right-0" style="color: #6b7280;"></ion-icon>
+                                    <span class="bg-secondary h-5 rounded-tl-lg rounded-bl-lg absolute -right-5 opacity-0 group-hover:opacity-100 transition-all" style="width: 5px;"></span>
+                                </a>
+                            </li>
+                            <li class="group relative mb-2.5">
+                                <a href="/" class="flex items-center text-secondary">
+                                    <div class="w-8 h-8 flex items-center justify-center">
+                                        <ion-icon name="cart-outline" class="w-5 h-5"></ion-icon>
+                                    </div>
+                                    <span class="text-sm font-normal font-sans ml-4">Bill</span>
+                                    <ion-icon name="chevron-down-outline" class="absolute right-0" style="color: #6b7280;"></ion-icon>
+                                    <span class="bg-secondary h-5 rounded-tl-lg rounded-bl-lg absolute -right-5 opacity-0 group-hover:opacity-100 transition-all" style="width: 5px;"></span>
+                                </a>
+                            </li>
+                            <li class="group relative mb-2.5">
+                                <a href="/" class="flex items-center text-secondary">
+                                    <div class="w-8 h-8 flex items-center justify-center">
+                                        <ion-icon name="cart-outline" class="w-5 h-5"></ion-icon>
+                                    </div>
+                                    <span class="text-sm font-normal font-sans ml-4">Vendor</span>
+                                    <ion-icon name="chevron-down-outline" class="absolute right-0" style="color: #6b7280;"></ion-icon>
+                                    <span class="bg-secondary h-5 rounded-tl-lg rounded-bl-lg absolute -right-5 opacity-0 group-hover:opacity-100 transition-all" style="width: 5px;"></span>
+                                </a>
+                            </li>
+                        </ul>
             </div>
              <div class="settings-menu hidden transform">
-                <li class="group relative mb-2.5">
-                    <a href="/" class="flex items-center text-secondary">
-                        <div class="w-8 h-8 flex items-center justify-center">
-                            <ion-icon name="folder-outline" class="w-5 h-5"></ion-icon>
-                        </div>
-                        <span class="text-sm font-medium ml-4">settings</span>
+                  <ul class="flex flex-col justify-center">
+                    <li class="group relative mb-2.5">
+                       <a href="/" class="flex items-center text-secondary">
+                            <div class="w-8 h-8 flex items-center justify-center">
+                                 <ion-icon name="speedometer-outline" class="w-5 h-5"></ion-icon>
+                            </div>
+                        <span class="text-sm font-normal font-sans ml-2">Company</span>
                         <span class="bg-secondary h-5 rounded-tl-lg rounded-bl-lg absolute -right-5 opacity-0 group-hover:opacity-100 transition-all" style="width: 5px;"></span>
-                    </a>
-                </li>
+                                </a>
+                            </li>
+                            <li class="group relative mb-2.5">
+                                <a href="/" class="flex items-center text-secondary">
+                                    <div class="w-8 h-8 flex items-center justify-center">
+                                        <ion-icon name="cube-outline" class="w-5 h-5"></ion-icon>
+                                    </div>
+                                    <span class="text-sm font-normal font-sans ml-4">Localization</span>
+                                    <span class="bg-secondary h-5 rounded-tl-lg rounded-bl-lg absolute -right-5 opacity-0 group-hover:opacity-100 transition-all" style="width: 5px;"></span>
+                                </a>
+                            </li>
+
+                            <li class="group relative mb-2.5">
+                                <a href="/" class="flex items-center text-secondary">
+                                    <div class="w-8 h-8 flex items-center justify-center">
+                                        <ion-icon name="cube-outline" class="w-5 h-5"></ion-icon>
+                                    </div>
+                                    <span class="text-sm font-normal font-sans ml-4">Invoice</span>
+                                    <span class="bg-secondary h-5 rounded-tl-lg rounded-bl-lg absolute -right-5 opacity-0 group-hover:opacity-100 transition-all" style="width: 5px;"></span>
+                                </a>
+                            </li>
+                            <li class="group relative mb-2.5">
+                                <a href="/" class="flex items-center text-secondary">
+                                    <div class="w-8 h-8 flex items-center justify-center">
+                                        <ion-icon name="cart-outline" class="w-5 h-5"></ion-icon>
+                                    </div>
+                                    <span class="text-sm font-normal font-sans ml-4">Default</span>
+                                    <ion-icon name="chevron-down-outline" class="absolute right-0" style="color: #6b7280;"></ion-icon>
+                                    <span class="bg-secondary h-5 rounded-tl-lg rounded-bl-lg absolute -right-5 opacity-0 group-hover:opacity-100 transition-all" style="width: 5px;"></span>
+                                </a>
+                            </li>
+                            <li class="group relative mb-2.5">
+                                <a href="/" class="flex items-center text-secondary">
+                                    <div class="w-8 h-8 flex items-center justify-center">
+                                        <ion-icon name="cart-outline" class="w-5 h-5"></ion-icon>
+                                    </div>
+                                    <span class="text-sm font-normal font-sans ml-4">Bill</span>
+                                    <ion-icon name="chevron-down-outline" class="absolute right-0" style="color: #6b7280;"></ion-icon>
+                                    <span class="bg-secondary h-5 rounded-tl-lg rounded-bl-lg absolute -right-5 opacity-0 group-hover:opacity-100 transition-all" style="width: 5px;"></span>
+                                </a>
+                            </li>
+                            <li class="group relative mb-2.5">
+                                <a href="/" class="flex items-center text-secondary">
+                                    <div class="w-8 h-8 flex items-center justify-center">
+                                        <ion-icon name="cart-outline" class="w-5 h-5"></ion-icon>
+                                    </div>
+                                    <span class="text-sm font-normal font-sans ml-4">Vendor</span>
+                                    <ion-icon name="chevron-down-outline" class="absolute right-0" style="color: #6b7280;"></ion-icon>
+                                    <span class="bg-secondary h-5 rounded-tl-lg rounded-bl-lg absolute -right-5 opacity-0 group-hover:opacity-100 transition-all" style="width: 5px;"></span>
+                                </a>
+                            </li>
+                        </ul>
             </div>
         </div>
             

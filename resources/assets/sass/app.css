@@ -2,9 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @font-face {
   font-family: 'Quicksand';
-  src: local(./resources/assets/fonts/Regular/Quicksand-Regular.woff2) format('woff2')
+  src: local(./resources/assets/fonts/Regular/Quicksand-Regular.woff) format('woff')
   , local(./resources/assets/fonts/Regular/Quicksand-Regular.ttf) format("truetype");
   font-weight: 400;
   font-display: "auto";
@@ -13,28 +14,28 @@
 
 @font-face {
     font-family: "Quicksand";
-    src: local(./resources/assets/fonts/Medium/Quicksand-Medium.woff2) format('woff2')
+    src: local(./resources/assets/fonts/Medium/Quicksand-Medium.woff) format('woff')
     , local(./resources/assets/fonts/Medium/Quicksand-Medium.ttf) format("truetype");
     font-weight: 500;
     font-display: "auto";
-    font-style: normal;
+    font-style: medium;
 }
 
 @font-face {
     font-family: "Quicksand";
-    src: local(./resources/assets/fonts/Semibold/Quicksand-Semibold.woff2) format('woff2')
+    src: local(./resources/assets/fonts/Semibold/Quicksand-Semibold.woff) format('woff')
         , local(./resources/assets/fonts/Semibold/Quicksand-Semibold.ttf) format("truetype");
     font-weight: 600;
     font-display: "auto";
-    font-style: normal;
+    font-style: semibold;
 }
 
 @font-face {
     font-family: "Quicksand";
-    src:  local(./resources/assets/fonts/Bold/Quicksand-Bold.woff2) format('woff2'),
+    src:  local(./resources/assets/fonts/Bold/Quicksand-Bold.woff) format('woff'),
             local(./resources/assets/fonts/Bold/Quicksand-Bold.ttf) format("truetype");
     font-weight: 700;
     font-display: "auto";
-    font-style: normal;
+    font-style: bold;
 }
 
