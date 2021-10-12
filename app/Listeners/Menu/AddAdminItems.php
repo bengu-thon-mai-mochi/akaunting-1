@@ -38,13 +38,13 @@ class AddAdminItems
                 }, 10, [
                     'url' => '/' . company_id(),
                     'title' => $title,
-                    'icon' => 'speedometer-outline',
+                    'icon' => 'speedometer',
                 ]);
             } else {
                 $menu->add([
                     'url' => '/' . company_id(),
                     'title' => trans_choice('general.dashboards', 1),
-                    'icon' => 'speedometer-outline',
+                    'icon' => 'speedometer',
                     'order' => 10,
                 ]);
             }
@@ -53,7 +53,7 @@ class AddAdminItems
         // Items
         $title = trim(trans_choice('general.items', 2));
         if ($this->canAccessMenuItem($title, 'read-common-items')) {
-            $menu->route('items.index', $title, [], 20, ['icon' => 'cube-outline']);
+            $menu->route('items.index', $title, [], 20, ['icon' => 'cube']);
         }
 
         // Sales
@@ -76,7 +76,7 @@ class AddAdminItems
                 }
             }, 30, [
                 'title' => $title,
-                'icon' => 'cash-outline',
+                'icon' => 'cash',
             ]);
         }
 
@@ -100,7 +100,7 @@ class AddAdminItems
                 }
             }, 40, [
                 'title' => $title,
-                'icon' => 'cart-outline',
+                'icon' => 'cart',
             ]);
         }
 
@@ -129,26 +129,26 @@ class AddAdminItems
                 }
             }, 50, [
                 'title' => $title,
-                'icon' => 'briefcase-outline',
+                'icon' => 'briefcase',
             ]);
         }
 
         // Reports
         $title = trim(trans_choice('general.reports', 2));
         if ($this->canAccessMenuItem($title, 'read-common-reports')) {
-            $menu->route('reports.index', $title, [], 60, ['icon' => 'bar-chart-outline']);
+            $menu->route('reports.index', $title, [], 60, ['icon' => 'bar-chart']);
         }
 
         // Settings
         $title = trim(trans_choice('general.settings', 2));
         if ($this->canAccessMenuItem($title, 'read-settings-settings')) {
-            $menu->route('settings.index', $title, [], 70, ['icon' => 'settings-outline']);
+            $menu->route('settings.index', $title, [], 70, ['icon' => 'settings']);
         }
 
         // Apps
         $title = trim(trans_choice('general.modules', 2));
         if ($this->canAccessMenuItem($title, 'read-modules-home')) {
-            $menu->route('apps.home.index', $title, [], 80, ['icon' => 'rocket-outline']);
+            $menu->route('apps.home.index', $title, [], 80, ['icon' => 'rocket']);
         }
     }
 }

@@ -11,7 +11,7 @@
                 <button class="flex items-center justify-center w-8 h-8 mb-2.5 cursor-pointer js-menu-toggles" data-menu="notification">
                     <ion-icon name="notifications-outline" class="text-secondary w-5 h-5 mt-1"></ion-icon>
                 </button>
-                <button class="flex items-center justify-center w-8 h-8 mb-2.5 cursor-pointer js-menu-toggles" data-menu="settings">
+                <button class="settings-item flex items-center justify-center w-8 h-8 mb-2.5 cursor-pointer js-menu-toggles" data-menu="settings">
                     <ion-icon name="settings-outline" class="text-secondary w-5 h-5 mt-1"></ion-icon>
                 </button>
                 <button class="add-item flex items-center justify-center w-8 h-8 mb-2.5 cursor-pointer js-menu-toggles" data-menu="add-circle">
@@ -45,7 +45,7 @@
                 </div>
                     
             </div>
-            <div class="sidebar-content transform">
+            <div class="main-menu transform">
                 {!! menu('admin') !!}  
                
                 @can('show-modules')
@@ -55,6 +55,28 @@
                 @can('show-settings')
                      {!! menu('settings') !!}  
                 @endcan
+            </div>
+            <div class="modules-menu hidden transform">
+                <li class="font-sans group relative mb-2.5">
+                    <a href="/" class="flex items-center text-secondary">
+                        <div class="w-8 h-8 flex items-center justify-center">
+                            <ion-icon name="folder-outline" class="w-5 h-5"></ion-icon>
+                        </div>
+                        <span class="text-sm font-medium ml-4">modules</span>
+                        <span class="bg-secondary h-5 rounded-tl-lg rounded-bl-lg absolute -right-5 opacity-0 group-hover:opacity-100 transition-all" style="width: 5px;"></span>
+                    </a>
+                </li>
+            </div>
+             <div class="settings-menu hidden transform">
+                <li class="group relative mb-2.5">
+                    <a href="/" class="flex items-center text-secondary">
+                        <div class="w-8 h-8 flex items-center justify-center">
+                            <ion-icon name="folder-outline" class="w-5 h-5"></ion-icon>
+                        </div>
+                        <span class="text-sm font-medium ml-4">settings</span>
+                        <span class="bg-secondary h-5 rounded-tl-lg rounded-bl-lg absolute -right-5 opacity-0 group-hover:opacity-100 transition-all" style="width: 5px;"></span>
+                    </a>
+                </li>
             </div>
         </div>
             

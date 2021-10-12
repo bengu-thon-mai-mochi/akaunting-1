@@ -17,41 +17,86 @@
 
     <!-- Argon -->
 
-    <script type="text/javascript">
-        function logItem(e) {
-            console.log(eval(e))
-            const item = document.querySelectorAll(`[data-id=${e}]`)[0];
-            item.setAttribute('name', 'cube');
+
+        handleToggle(){
+            console.log('toggled')
         }
-    </script>
-        
 
     <script type="text/javascript">
         'use strict';
-        
+
         var Layout = (function() {    
             const toggleButton = document.querySelector('.toggle-button');
             const addItem = document.querySelector('.add-item');
+            const settingsItem = document.querySelector('.settings-item');
             const sideBar = document.querySelector('.js-main-menu');
-            const sidebarContent = document.querySelector('.sidebar-content');
+            const mainContent = document.querySelector('.main-menu');
+            const modulesContent = document.querySelector('.modules-menu');
+            const settingsContent = document.querySelector('.settings-menu');
 
+            const detailsEL = document.getElementsByTagName("DETAILS");
             
-            /*
-            const fillIcon = function() {
-                const stringToEdit = addItemButton.children[0].getAttribute('name');
-                const activeIconName = stringToEdit.replace('-outline', '');
-                addItemButton.children[0].setAttribute('name', activeIconName); //or any other item to edit 
-            }; */
+            detailsEL.forEach(el => el.addEventListener('toggle', function(e) {
+                const listIcon =  e.target.getElementsByTagName("Summary")[0].getElementsByTagName("div")[0].getElementsByTagName("ion-icon")[0];
+                const chevron =  e.target.getElementsByTagName("Summary")[0].getElementsByTagName("ion-icon")[1]
+                
+                if(e.target.getAttributeNode('open')) {
+                   const activeName = listIcon.getAttribute('name').replace('-outline', '');
+                   const chevronState = chevron.getAttribute('name').replace('-down', '-up');
+                   chevron.setAttribute('name', chevronState);
+                   listIcon.setAttribute('name', activeName);
+                } else {
+                   const inactiveName = listIcon.getAttribute('name') + '-outline';
+                   const chevronState = chevron.getAttribute('name').replace('-up', '-down');
+                   chevron.setAttribute('name', chevronState);
+                   listIcon.setAttribute('name', inactiveName);
+                }
+            }))
+
+            toggleButton.addEventListener('click', function() {
+                sideBar.classList.contains('hidden')
+                ?  sideBar.classList.remove('hidden')
+                : sideBar.classList.add('hidden');
+            })
+               
+            // Store the sidenav state in a cookie session
+            //    Cookies.set('sidenav-state', 'pinned');
+            
 
             addItem.addEventListener('click', function () {
-                sidebarContent.classList.add('hidden'); //hide main admin menu content
-                addItem.children[0].setAttribute('name', 'add-circle'); //active icon
+                settingsContent.classList.add('hidden');
+
+                if(modulesContent.classList.contains('hidden'))  {
+                    addItem.children[0].setAttribute('name', 'add-circle'); //active icon
+                    settingsItem.children[0].setAttribute('name', 'settings-outline');
+                    modulesContent.classList.remove('hidden');
+                    sideBar.classList.remove('hidden')
+                    mainContent.classList.add('hidden');
+                } else {
+                    addItem.children[0].setAttribute('name', 'add-circle-outline'); //active icon
+                    modulesContent.classList.add('hidden');
+                    mainContent.classList.remove('hidden'); 
+                };
+            });
+
+            settingsItem.addEventListener('click', function () {
+                modulesContent.classList.add('hidden');
+                
+                if(settingsContent.classList.contains('hidden'))  {
+                    mainContent.classList.add('hidden'); 
+                    addItem.children[0].setAttribute('name', 'add-circle-outline');
+                    settingsItem.children[0].setAttribute('name', 'settings'); //active icon
+                    settingsContent.classList.remove('hidden');
+                     sideBar.classList.remove('hidden')
+                } else {
+                    settingsItem.children[0].setAttribute('name', 'settings-outline'); //active icon
+                    settingsContent.classList.add('hidden');
+                    mainContent.classList.remove('hidden'); 
+                };
             });
 
             function activateItem() {
-                const items =  document.querySelectorAll('.group'); 
-            
-                tems.forEach(el => el.addEventListener('click', (e)  => el.children[0].setAttribute('name', 'cube') ))
+             
                 // Store the sidenav state in a cookie session
                 Cookies.set('sidenav-state', 'pinned');
             }
