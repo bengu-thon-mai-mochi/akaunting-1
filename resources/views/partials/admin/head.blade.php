@@ -26,17 +26,11 @@
             }
 
             details[open] summary ~ * {
-                animation-name: bounce;
-                animation-duration: 0.7s;
-              // animation: cubic-bezier(0.4, 0, 0.2, 1) 0.20s ease-in-out
-            }
-
-            @keyframes rotate {
-            0% {
-                transform: rotate(0);
-            }
-            100% {
-                transform: rotate(360deg);
+               transition: text 0.5s ease;
+               transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+               transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+               transition-duration: 150ms;
+               transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
             }
 }
         </style>

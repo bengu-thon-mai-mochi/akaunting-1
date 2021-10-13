@@ -54,9 +54,15 @@
             }))
 
             toggleButton.addEventListener('click', function() {
-                sideBar.classList.contains('hidden')
-                ?  sideBar.classList.remove('hidden')
-                : sideBar.classList.add('hidden');
+                if(sideBar.classList.contains('hidden')) {
+                    sideBar.classList.remove('hidden')
+                    sideBar.classList.add('transition');
+                     sideBar.classList.add('ease-in-out');
+                } else {
+                    sideBar.classList.add('hidden');
+                    sideBar.classList.add('transition');
+                    sideBar.classList.add('ease-in-out');
+                }
             })
                
             // Store the sidenav state in a cookie session
@@ -70,7 +76,11 @@
                     addItem.children[0].setAttribute('name', 'add-circle'); //active icon
                     settingsItem.children[0].setAttribute('name', 'settings-outline');
                     modulesContent.classList.remove('hidden');
-                    sideBar.classList.remove('hidden')
+                    modulesContent.classList.add('transition-all');
+                     modulesContent.classList.add('ease-in-out');
+                    sideBar.classList.remove('hidden');
+                      sideBar.classList.add('transition-all');
+                     sideBar.classList.add('ease-in-out');
                     mainContent.classList.add('hidden');
                 } else {
                     addItem.children[0].setAttribute('name', 'add-circle-outline'); //active icon
